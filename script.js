@@ -1,182 +1,75 @@
-const temas = {
-  matematica: {
-    titulo: "📐 Quiz de Matemática",
-    proximo: "portugues",
-    perguntas: [
-      {
-        pergunta: "Quanto é 12 x 8?",
-        respostas: ["96", "84", "88", "102"],
-        correta: 0
-      },
-      {
-        pergunta: "Raiz quadrada de 144?",
-        respostas: ["10", "11", "12", "13"],
-        correta: 2
-      }
-    ]
-  },
-  portugues: {
-    titulo: "📝 Quiz de Português",
-    proximo: "historia",
-    perguntas: [
-      {
-        pergunta: "Qual é o sujeito da frase: 'O menino correu para casa'?",
-        respostas: ["correu", "o menino", "para casa", "menino correu"],
-        correta: 1
-      },
-      {
-        pergunta: "Plural de 'irmão'?",
-        respostas: ["irmãos", "irmões", "irmães", "irmãoses"],
-        correta: 0
-      }
-    ]
-  },
-  historia: {
-    titulo: "🏛 Quiz de História",
-    proximo: "geografia",
-    perguntas: [
-      {
-        pergunta: "Quem proclamou a independência do Brasil?",
-        respostas: ["Dom João VI", "Tiradentes", "Dom Pedro I", "Getúlio Vargas"],
-        correta: 2
-      },
-      {
-        pergunta: "Qual país iniciou a 2ª Guerra Mundial?",
-        respostas: ["França", "Japão", "Alemanha", "Rússia"],
-        correta: 2
-      }
-    ]
-  },
-  geografia: {
-    titulo: "🌍 Quiz de Geografia",
-    proximo: "ciencias",
-    perguntas: [
-      {
-        pergunta: "Maior país da América do Sul?",
-        respostas: ["Brasil", "Argentina", "Colômbia", "Chile"],
-        correta: 0
-      },
-      {
-        pergunta: "Qual é o oceano entre América e Europa?",
-        respostas: ["Índico", "Pacífico", "Ártico", "Atlântico"],
-        correta: 3
-      }
-    ]
-  },
-  ciencias: {
-    titulo: "🔬 Quiz de Ciências",
-    proximo: "ingles",
-    perguntas: [
-      {
-        pergunta: "Qual parte do corpo humano bombeia sangue?",
-        respostas: ["Cérebro", "Estômago", "Fígado", "Coração"],
-        correta: 3
-      },
-      {
-        pergunta: "A água ferve a quantos graus Celsius?",
-        respostas: ["80", "90", "100", "110"],
-        correta: 2
-      }
-    ]
-  },
-  ingles: {
-    titulo: "🗣️ Quiz de Inglês",
-    proximo: "artes",
-    perguntas: [
-      {
-        pergunta: "O que significa 'hello'?",
-        respostas: ["Adeus", "Oi", "Por favor", "Obrigado"],
-        correta: 1
-      },
-      {
-        pergunta: "Tradução de 'apple'?",
-        respostas: ["Banana", "Uva", "Maçã", "Pêra"],
-        correta: 2
-      }
-    ]
-  },
-  artes: {
-    titulo: "🎨 Quiz de Artes",
-    proximo: null,
-    perguntas: [
-      {
-        pergunta: "Quem pintou a Mona Lisa?",
-        respostas: ["Van Gogh", "Michelangelo", "Leonardo da Vinci", "Picasso"],
-        correta: 2
-      },
-      {
-        pergunta: "A arte do grafite é geralmente feita onde?",
-        respostas: ["Em telas", "Em muros", "Em livros", "Em jornais"],
-        correta: 1
-      }
-    ]
-  }
+// script.js
+const quizzes = {
+  matematica: [
+    { pergunta: "Quanto é 2 + 2?", respostas: ["3", "4", "5", "6"], correta: 1 },
+    { pergunta: "Quanto é 5 x 3?", respostas: ["15", "10", "20", "8"], correta: 0 }
+  ],
+  portugues: [
+    { pergunta: "Qual é o plural de pão?", respostas: ["pães", "pãos", "pãezinhos", "pãons"], correta: 0 },
+    { pergunta: "Qual dessas palavras é um advérbio?", respostas: ["rápido", "correndo", "devagar", "andar"], correta: 2 }
+  ]
+  // Adicione mais temas aqui...
 };
 
-let temaAtual;
-let perguntas;
-let index = 0;
+let tema = new URLSearchParams(window.location.search).get("tema");
+let perguntas = quizzes[tema];
+let indice = 0;
 let pontos = 0;
 
-function getTema() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("tema");
+const titulo = document.getElementById("quiz-title");
+const pergunta = document.getElementById("question");
+const respostas = document.getElementById("answers");
+const score = document.getElementById("score");
+const btnProxima = document.getElementById("next-btn");
+const btnVoltar = document.getElementById("back-btn");
+const btnProximoQuiz = document.getElementById("next-quiz-btn");
+
+if (!perguntas) {
+  titulo.innerText = "Tema não encontrado.";
+  btnProxima.style.display = "none";
+  return;
 }
 
-function iniciarQuiz() {
-  const tema = getTema();
-  if (!temas[tema]) return;
+titulo.innerText = `Tema: ${tema.charAt(0).toUpperCase() + tema.slice(1)}`;
+carregarPergunta();
 
-  temaAtual = temas[tema];
-  perguntas = temaAtual.perguntas;
-  document.getElementById("quiz-title").textContent = temaAtual.titulo;
-  mostrarPergunta();
-}
-
-function mostrarPergunta() {
-  const q = perguntas[index];
-  document.getElementById("question").textContent = q.pergunta;
-  const answersDiv = document.getElementById("answers");
-  answersDiv.innerHTML = "";
-  q.respostas.forEach((resp, i) => {
-    const div = document.createElement("div");
-    div.classList.add("answer");
-    div.textContent = resp;
-    div.onclick = () => verificarResposta(i);
-    answersDiv.appendChild(div);
+function carregarPergunta() {
+  const q = perguntas[indice];
+  pergunta.innerText = q.pergunta;
+  respostas.innerHTML = "";
+  q.respostas.forEach((resposta, i) => {
+    const btn = document.createElement("div");
+    btn.classList.add("answer");
+    btn.innerText = resposta;
+    btn.onclick = () => selecionar(i);
+    respostas.appendChild(btn);
   });
-  document.getElementById("next-btn").style.display = "none";
+  btnProxima.style.display = "none";
 }
 
-function verificarResposta(i) {
-  const correta = perguntas[index].correta;
-  const respostas = document.querySelectorAll(".answer");
-  respostas.forEach((el, idx) => {
-    el.style.backgroundColor = idx === correta ? "#2ecc71" : "#e74c3c";
-    el.onclick = null;
-  });
-  if (i === correta) pontos++;
-  document.getElementById("next-btn").style.display = "inline-block";
+function selecionar(i) {
+  const q = perguntas[indice];
+  if (i === q.correta) pontos++;
+  indice++;
+  btnProxima.style.display = "inline-block";
 }
 
 function nextQuestion() {
-  index++;
-  if (index < perguntas.length) {
-    mostrarPergunta();
+  if (indice < perguntas.length) {
+    carregarPergunta();
   } else {
-    document.getElementById("quiz-container").innerHTML = `<h2>Você finalizou o quiz!</h2>`;
-    document.getElementById("score").textContent = `Acertos: ${pontos}/${perguntas.length}`;
-    document.getElementById("back-btn").style.display = "inline-block";
-    if (temaAtual.proximo) {
-      document.getElementById("next-quiz-btn").style.display = "inline-block";
-    }
+    pergunta.innerText = "Quiz finalizado!";
+    respostas.innerHTML = "";
+    score.innerText = `Você acertou ${pontos} de ${perguntas.length}`;
+    btnProxima.style.display = "none";
+    btnVoltar.style.display = "inline-block";
+    btnProximoQuiz.style.display = "inline-block";
   }
 }
 
 function proximoQuiz() {
-  if (temaAtual.proximo) {
-    window.location.href = `quiz.html?tema=${temaAtual.proximo}`;
-  }
+  const temas = Object.keys(quizzes);
+  let atual = temas.indexOf(tema);
+  let proximo = (atual + 1) % temas.length;
+  window.location.href = `quiz.html?tema=${temas[proximo]}`;
 }
-
-window.onload = iniciarQuiz;
