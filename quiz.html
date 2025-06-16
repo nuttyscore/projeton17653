@@ -1,23 +1,129 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quiz</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
-    <h1 id="titulo">Tema: </h1>
-    <div id="quiz" class="quiz">
-      <div id="question" class="question"></div>
-      <div id="answers" class="answers"></div>
-      <button id="next" onclick="nextQuestion()">Próxima</button>
-    </div>
-    <div id="result" class="result"></div>
-    <button id="voltar" onclick="location.href='index.html'" style="display:none">Voltar ao início</button>
-    <button id="next-quiz" onclick="proximoQuiz()" style="display:none">Próximo Tema</button>
-  </div>
-  <script src="quiz.js"></script>
-</body>
-</html>
+const quizzes = {
+  historia: [
+    { pergunta: "Quem escreveu a carta de Pero Vaz de Caminha?", respostas: ["Pedro Álvares Cabral", "Tomé de Souza", "Pero Vaz de Caminha", "Anchieta"], correta: 2 },
+    { pergunta: "Qual tratado dividiu as terras do 'Novo Mundo' entre Portugal e Espanha?", respostas: ["Tratado de Tordesilhas", "Tratado de Versalhes", "Tratado de Madri", "Tratado de Utrecht"], correta: 0 },
+    { pergunta: "O que foi a Revolta da Vacina?", respostas: ["Uma rebelião contra vacinação obrigatória", "Revolta contra aumento de impostos", "Revolta de soldados", "Protesto contra corrupção"], correta: 0 },
+    { pergunta: "Quem foi o líder da Inconfidência Mineira?", respostas: ["José Bonifácio", "Tiradentes", "Dom Pedro I", "Duque de Caxias"], correta: 1 },
+    { pergunta: "Qual país colonizou o Brasil?", respostas: ["Espanha", "Inglaterra", "França", "Portugal"], correta: 3 },
+    { pergunta: "Qual o nome da primeira capital do Brasil?", respostas: ["Rio de Janeiro", "Salvador", "Olinda", "Recife"], correta: 1 },
+    { pergunta: "Qual foi a causa principal da Guerra do Paraguai?", respostas: ["Terras indígenas", "Disputa fluvial", "Religião", "Escravidão"], correta: 1 }
+  ],
+  geografia: [
+    { pergunta: "Qual país tem mais fusos horários?", respostas: ["Rússia", "França", "Brasil", "EUA"], correta: 1 },
+    { pergunta: "O deserto do Saara está localizado em qual continente?", respostas: ["Ásia", "África", "América", "Oceania"], correta: 1 },
+    { pergunta: "Qual é o maior arquipélago do mundo?", respostas: ["Indonésia", "Filipinas", "Havaí", "Japão"], correta: 0 },
+    { pergunta: "O Monte Everest está localizado em qual cadeia de montanhas?", respostas: ["Andes", "Himalaia", "Alpes", "Atlas"], correta: 1 },
+    { pergunta: "Qual o nome do paralelo que divide o hemisfério norte e sul?", respostas: ["Trópico de Capricórnio", "Equador", "Meridiano de Greenwich", "Círculo Polar"], correta: 1 },
+    { pergunta: "Qual país é completamente cercado pela África do Sul?", respostas: ["Namíbia", "Botsuana", "Lesoto", "Zimbábue"], correta: 2 },
+    { pergunta: "Qual oceano banha o litoral brasileiro?", respostas: ["Atlântico", "Índico", "Ártico", "Pacífico"], correta: 0 }
+  ],
+  portugues: [
+    { pergunta: "O que é uma oração subordinada?", respostas: ["Tem sentido completo", "Depende de outra para fazer sentido", "É sempre imperativa", "Tem sujeito indeterminado"], correta: 1 },
+    { pergunta: "Qual é o plural de 'pão'?", respostas: ["Pães", "Pãos", "Pãeses", "Pãesão"], correta: 0 },
+    { pergunta: "O que é um advérbio?", respostas: ["Palavra que substitui o verbo", "Palavra que acompanha o substantivo", "Palavra que modifica o verbo", "Palavra que liga frases"], correta: 2 },
+    { pergunta: "Qual é a função do predicado?", respostas: ["Indicar quem faz a ação", "Descrever o sujeito", "Descrever a ação ou estado", "Unir sujeito e verbo"], correta: 2 },
+    { pergunta: "Qual figura de linguagem compara duas coisas com 'como'?", respostas: ["Metáfora", "Comparação", "Hipérbole", "Ironia"], correta: 1 },
+    { pergunta: "Qual é o tempo verbal da frase: 'Eu teria ido'?", respostas: ["Pretérito perfeito", "Futuro do presente", "Futuro do pretérito", "Presente do indicativo"], correta: 2 },
+    { pergunta: "Qual é o substantivo coletivo de 'peixe'?", respostas: ["Cardume", "Rebanho", "Matilha", "Manada"], correta: 0 }
+  ],
+  matematica: [
+    { pergunta: "Qual é o valor de π (pi) aproximado?", respostas: ["3,14", "2,17", "4,13", "1,62"], correta: 0 },
+    { pergunta: "Qual é a fórmula da área do triângulo?", respostas: ["b × h", "b × h ÷ 2", "l × l", "π × r²"], correta: 1 },
+    { pergunta: "Quanto é 12²?", respostas: ["124", "144", "122", "132"], correta: 1 },
+    { pergunta: "Qual o resultado da raiz quadrada de 144?", respostas: ["11", "12", "13", "14"], correta: 1 },
+    { pergunta: "Qual é o próximo número primo depois de 7?", respostas: ["8", "9", "10", "11"], correta: 3 },
+    { pergunta: "Qual a fórmula da área do círculo?", respostas: ["π × r²", "2 × π × r", "l × l", "b × h"], correta: 0 },
+    { pergunta: "Quanto é (5 + 3) × 2?", respostas: ["16", "11", "10", "13"], correta: 0 }
+  ]
+};
+
+const params = new URLSearchParams(window.location.search);
+let tema = params.get("tema");
+let perguntas = quizzes[tema];
+let indice = 0;
+let pontos = 0;
+let tempo = 60; // segundos
+
+const titulo = document.getElementById("titulo");
+const pergunta = document.getElementById("question");
+const respostas = document.getElementById("answers");
+const resultado = document.getElementById("result");
+const btnProxima = document.getElementById("next");
+const btnVoltar = document.getElementById("voltar");
+const btnProximoQuiz = document.getElementById("next-quiz");
+
+titulo.innerText = `Tema: ${tema.charAt(0).toUpperCase() + tema.slice(1)}`;
+
+function iniciarTimer() {
+  const timerEl = document.createElement("div");
+  timerEl.id = "timer";
+  timerEl.style.marginTop = "10px";
+  timerEl.style.fontSize = "1.2rem";
+  document.querySelector(".container").prepend(timerEl);
+
+  const intervalo = setInterval(() => {
+    document.getElementById("timer").innerText = `Tempo restante: ${tempo}s`;
+    tempo--;
+    if (tempo < 0) {
+      clearInterval(intervalo);
+      alert("Tempo esgotado!");
+      window.location.href = "index.html";
+    }
+  }, 1000);
+}
+
+function carregarPergunta() {
+  const q = perguntas[indice];
+  pergunta.innerText = q.pergunta;
+  respostas.innerHTML = "";
+
+  q.respostas.forEach((resposta, i) => {
+    const btn = document.createElement("button");
+    btn.classList.add("answer");
+    btn.innerText = resposta;
+    btn.onclick = () => selecionar(i);
+    respostas.appendChild(btn);
+  });
+
+  btnProxima.style.display = "none";
+}
+
+function selecionar(i) {
+  const q = perguntas[indice];
+  const todasRespostas = document.querySelectorAll("#answers .answer");
+  todasRespostas.forEach((btn, index) => {
+    btn.style.pointerEvents = "none";
+    btn.style.backgroundColor = index === q.correta ? "#00e676" : "#e60000";
+  });
+
+  if (i === q.correta) pontos++;
+  indice++;
+  btnProxima.style.display = "inline-block";
+}
+
+function nextQuestion() {
+  if (indice < perguntas.length) {
+    carregarPergunta();
+  } else {
+    mostrarResultado();
+  }
+}
+
+function mostrarResultado() {
+  document.getElementById("quiz").style.display = "none";
+  resultado.innerText = `Você acertou ${pontos} de ${perguntas.length} perguntas.`;
+  btnVoltar.style.display = "inline-block";
+
+  const temas = Object.keys(quizzes);
+  const proximo = (temas.indexOf(tema) + 1) % temas.length;
+  btnProximoQuiz.style.display = "inline-block";
+  btnProximoQuiz.setAttribute("data-tema", temas[proximo]);
+}
+
+function proximoQuiz() {
+  const proximoTema = btnProximoQuiz.getAttribute("data-tema");
+  window.location.href = `quiz.html?tema=${proximoTema}`;
+}
+
+iniciarTimer();
+carregarPergunta();
