@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Quiz</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
@@ -12,12 +12,15 @@
     <div id="quiz-container">
       <p id="question">Pergunta</p>
       <div id="answers"></div>
-      <button id="next-btn" onclick="nextQuestion()">Próxima</button>
+
+      <button id="next-btn" onclick="nextQuestion()" style="display:none">Próxima</button>
       <p id="score"></p>
-      <button id="back-btn" onclick="window.location.href='index.html'" style="display: none;">🔙 Voltar</button>
-      <button id="next-quiz-btn" onclick="proximoQuiz()" style="display: none;">➡️ Próximo Tema</button>
+
+      <button id="back-btn" onclick="window.location.href='index.html'" style="display:none">🔙 Voltar</button>
+      <button id="next-quiz-btn" onclick="proximoQuiz()" style="display:none">➡️ Próximo Tema</button>
     </div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
