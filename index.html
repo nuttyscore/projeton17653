@@ -2,40 +2,30 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quiz Interativo - Escolha sua Matéria</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz Educacional</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Escolha sua Matéria</h1>
-    <div class="cards">
-      <div class="card" data-quiz="matematica" style="--bg: linear-gradient(135deg, #667eea, #764ba2)">
-        <h2>Matemática</h2>
-      </div>
-      <div class="card" data-quiz="historia" style="--bg: linear-gradient(135deg, #f7971e, #ffd200)">
-        <h2>História</h2>
-      </div>
-      <div class="card" data-quiz="biologia" style="--bg: linear-gradient(135deg, #43cea2, #185a9d)">
-        <h2>Biologia</h2>
-      </div>
-      <div class="card" data-quiz="literatura" style="--bg: linear-gradient(135deg, #ee9ca7, #ffdde1)">
-        <h2>Literatura</h2>
-      </div>
-    </div>
+  <h1>Escolha uma Matéria</h1>
+  <div class="card-container">
+    <button class="card" onclick="startQuiz('matematica')">Matemática</button>
+    <button class="card" onclick="startQuiz('portugues')">Português</button>
+    <button class="card" onclick="startQuiz('historia')">História</button>
+    <button class="card" onclick="startQuiz('geografia')">Geografia</button>
+    <button class="card" onclick="startQuiz('ciencias')">Ciências</button>
+    <button class="card" onclick="startQuiz('ingles')">Inglês</button>
+    <button class="card" onclick="startQuiz('biologia')">Biologia</button>
+    <button class="card" onclick="startQuiz('quimica')">Química</button>
   </div>
 
-  <div class="quiz-container hidden">
-    <button id="btn-back">← Voltar para as matérias</button>
-    <div id="quiz">
-      <div id="question"></div>
-      <ul id="answers"></ul>
-    </div>
-    <button id="btn-next" class="hidden">Próxima pergunta</button>
-    <button id="btn-finish" class="hidden">Finalizar Quiz</button>
+  <div id="quiz-container" class="hidden">
+    <h2 id="question"></h2>
+    <div id="options"></div>
+    <button id="next-btn" onclick="nextQuestion()">Próxima</button>
+    <button id="back-btn" onclick="goBack()">Voltar</button>
   </div>
 
   <script src="quiz.js"></script>
-  <script src="script.js"></script>
 </body>
 </html>

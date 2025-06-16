@@ -1,265 +1,122 @@
+const quizContainer = document.getElementById("quiz-container");
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+
+let currentQuiz = [];
+let currentIndex = 0;
+
 const quizzes = {
   matematica: [
-    {
-      question: "Qual é a derivada de f(x) = x³ - 5x² + 6x - 2?",
-      answers: [
-        { text: "3x² - 10x + 6", correct: true },
-        { text: "3x² - 5x + 6", correct: false },
-        { text: "x³ - 10x + 6", correct: false },
-        { text: "3x³ - 10x² + 6x", correct: false },
-      ],
-    },
-    {
-      question: "Qual é o valor de ∫(2x + 3) dx?",
-      answers: [
-        { text: "x² + 3x + C", correct: true },
-        { text: "2x² + 3 + C", correct: false },
-        { text: "x² + 3 + C", correct: false },
-        { text: "2x + 3 + C", correct: false },
-      ],
-    },
-    {
-      question: "Se A = {1,2,3} e B = {3,4,5}, qual é A ∩ B?",
-      answers: [
-        { text: "{3}", correct: true },
-        { text: "{1,2}", correct: false },
-        { text: "{4,5}", correct: false },
-        { text: "{1,2,3,4,5}", correct: false },
-      ],
-    },
-    {
-      question: "Qual o resultado de log₁₀(1000)?",
-      answers: [
-        { text: "3", correct: true },
-        { text: "10", correct: false },
-        { text: "1000", correct: false },
-        { text: "1", correct: false },
-      ],
-    },
-    {
-      question: "Qual é a solução da equação 2x + 3 = 11?",
-      answers: [
-        { text: "4", correct: true },
-        { text: "5", correct: false },
-        { text: "3", correct: false },
-        { text: "6", correct: false },
-      ],
-    },
-    {
-      question: "Qual é o número primo seguinte a 31?",
-      answers: [
-        { text: "37", correct: true },
-        { text: "33", correct: false },
-        { text: "35", correct: false },
-        { text: "39", correct: false },
-      ],
-    },
-    {
-      question: "Qual é o valor do determinante da matriz [[2,3],[1,4]]?",
-      answers: [
-        { text: "5", correct: true },
-        { text: "10", correct: false },
-        { text: "11", correct: false },
-        { text: "6", correct: false },
-      ],
-    },
+    { pergunta: "Qual é o valor de π (pi) aproximado?", opcoes: ["3,14", "2,71", "1,61", "4,20"], correta: "3,14" },
+    { pergunta: "Qual a derivada de x²?", opcoes: ["x", "2x", "x²", "1"], correta: "2x" },
+    { pergunta: "Quanto é a raiz cúbica de 27?", opcoes: ["3", "9", "6", "4"], correta: "3" },
+    { pergunta: "Qual a fórmula da área do círculo?", opcoes: ["πr²", "2πr", "r²", "πd"], correta: "πr²" },
+    { pergunta: "Quantos graus tem um triângulo?", opcoes: ["180°", "360°", "90°", "120°"], correta: "180°" },
+    { pergunta: "O que representa log(100)?", opcoes: ["10", "2", "100", "1"], correta: "2" },
+    { pergunta: "Integral de 1/x é?", opcoes: ["ln(x)", "1", "x", "x²"], correta: "ln(x)" }
   ],
-
+  portugues: [
+    { pergunta: "O que é uma metáfora?", opcoes: ["Repetição", "Comparação implícita", "Rima", "Verbo"], correta: "Comparação implícita" },
+    { pergunta: "Qual é o sujeito da frase: 'Chove muito hoje'?", opcoes: ["Oculto", "Simples", "Inexistente", "Composto"], correta: "Inexistente" },
+    { pergunta: "Qual é o plural de 'cidadão'?", opcoes: ["Cidadãos", "Cidadães", "Cidades", "Cidadões"], correta: "Cidadãos" },
+    { pergunta: "Qual é a função da vírgula?", opcoes: ["Separar elementos", "Unir frases", "Indicar fim", "Nada"], correta: "Separar elementos" },
+    { pergunta: "Qual o tempo verbal: 'Eu teria ido'?", opcoes: ["Futuro", "Pretérito", "Condicional", "Presente"], correta: "Condicional" },
+    { pergunta: "Qual é a classe da palavra 'rapidamente'?", opcoes: ["Adjetivo", "Verbo", "Advérbio", "Substantivo"], correta: "Advérbio" },
+    { pergunta: "Qual é a voz da frase: 'O carro foi consertado pelo mecânico'?", opcoes: ["Ativa", "Passiva", "Reflexiva", "Inexistente"], correta: "Passiva" }
+  ],
   historia: [
-    {
-      question: "Em que ano ocorreu a Revolução Francesa?",
-      answers: [
-        { text: "1789", correct: true },
-        { text: "1776", correct: false },
-        { text: "1804", correct: false },
-        { text: "1799", correct: false },
-      ],
-    },
-    {
-      question: "Quem foi o imperador romano durante o ano 54 d.C.?",
-      answers: [
-        { text: "Nero", correct: true },
-        { text: "Augusto", correct: false },
-        { text: "Calígula", correct: false },
-        { text: "Trajano", correct: false },
-      ],
-    },
-    {
-      question: "Qual guerra foi conhecida como a 'Guerra dos Cem Anos'?",
-      answers: [
-        { text: "Conflito entre Inglaterra e França", correct: true },
-        { text: "Guerra entre Roma e Cartago", correct: false },
-        { text: "Guerra Civil Americana", correct: false },
-        { text: "Guerra Fria", correct: false },
-      ],
-    },
-    {
-      question: "Quem foi o líder da independência do Brasil?",
-      answers: [
-        { text: "Dom Pedro I", correct: true },
-        { text: "Tiradentes", correct: false },
-        { text: "Getúlio Vargas", correct: false },
-        { text: "José Bonifácio", correct: false },
-      ],
-    },
-    {
-      question: "Em que ano terminou a Segunda Guerra Mundial?",
-      answers: [
-        { text: "1945", correct: true },
-        { text: "1939", correct: false },
-        { text: "1918", correct: false },
-        { text: "1950", correct: false },
-      ],
-    },
-    {
-      question: "Qual civilização construiu as pirâmides do Egito?",
-      answers: [
-        { text: "Egípcia", correct: true },
-        { text: "Mesopotâmica", correct: false },
-        { text: "Inca", correct: false },
-        { text: "Asteca", correct: false },
-      ],
-    },
-    {
-      question: "Quem foi o responsável pela queda do Muro de Berlim?",
-      answers: [
-        { text: "Mikhail Gorbachev", correct: true },
-        { text: "Winston Churchill", correct: false },
-        { text: "Ronald Reagan", correct: false },
-        { text: "John F. Kennedy", correct: false },
-      ],
-    },
+    { pergunta: "Em que ano começou a 2ª Guerra Mundial?", opcoes: ["1939", "1945", "1914", "1920"], correta: "1939" },
+    { pergunta: "Quem foi Tiradentes?", opcoes: ["Imperador", "Revolucionário", "Presidente", "Militar"], correta: "Revolucionário" },
+    { pergunta: "O que foi a Revolução Francesa?", opcoes: ["Conflito mundial", "Conflito contra a monarquia", "Invasão", "Crise de petróleo"], correta: "Conflito contra a monarquia" },
+    { pergunta: "Quem descobriu o Brasil?", opcoes: ["Pedro Álvares Cabral", "Dom Pedro", "Cabral Machado", "Cristóvão Colombo"], correta: "Pedro Álvares Cabral" },
+    { pergunta: "Qual império caiu em 476 d.C.?", opcoes: ["Romano", "Grego", "Chinês", "Egípcio"], correta: "Romano" },
+    { pergunta: "Qual foi o principal motivo da Guerra Fria?", opcoes: ["Corrida espacial", "Ideologias", "Petróleo", "Colonização"], correta: "Ideologias" },
+    { pergunta: "Quem foi Napoleão Bonaparte?", opcoes: ["Cientista", "Imperador francês", "Papa", "Ditador alemão"], correta: "Imperador francês" }
   ],
-
+  geografia: [
+    { pergunta: "Qual é o maior país do mundo?", opcoes: ["Canadá", "Brasil", "China", "Rússia"], correta: "Rússia" },
+    { pergunta: "O que é uma cordilheira?", opcoes: ["Grupo de rios", "Montanhas alinhadas", "Região de planalto", "Floresta"], correta: "Montanhas alinhadas" },
+    { pergunta: "Qual é o bioma da Amazônia?", opcoes: ["Cerrado", "Mata Atlântica", "Floresta Tropical", "Caatinga"], correta: "Floresta Tropical" },
+    { pergunta: "O que é latitude?", opcoes: ["Distância do meridiano", "Distância do equador", "Altura", "Profundidade"], correta: "Distância do equador" },
+    { pergunta: "Qual país tem mais fusos horários?", opcoes: ["EUA", "Brasil", "China", "Rússia"], correta: "Rússia" },
+    { pergunta: "Qual é o maior oceano?", opcoes: ["Atlântico", "Índico", "Pacífico", "Ártico"], correta: "Pacífico" },
+    { pergunta: "O que é um terremoto?", opcoes: ["Vento forte", "Tremor da crosta", "Tsunami", "Erupção"], correta: "Tremor da crosta" }
+  ],
+  ciencias: [
+    { pergunta: "Qual é a fórmula da água?", opcoes: ["H2O", "CO2", "O2", "NaCl"], correta: "H2O" },
+    { pergunta: "Qual planeta é conhecido como 'planeta vermelho'?", opcoes: ["Terra", "Marte", "Júpiter", "Vênus"], correta: "Marte" },
+    { pergunta: "Qual gás respiramos?", opcoes: ["Hidrogênio", "Oxigênio", "Gás Carbônico", "Nitrogênio"], correta: "Oxigênio" },
+    { pergunta: "O que são fósseis?", opcoes: ["Animais vivos", "Restos preservados", "Plantas", "Rochas"], correta: "Restos preservados" },
+    { pergunta: "Qual é a camada mais externa da Terra?", opcoes: ["Manto", "Crosta", "Núcleo", "Atmosfera"], correta: "Crosta" },
+    { pergunta: "Qual a fonte primária de energia da Terra?", opcoes: ["Lua", "Sol", "Fogo", "Vento"], correta: "Sol" },
+    { pergunta: "O que é fotossíntese?", opcoes: ["Respiração", "Produção de alimento", "Evaporação", "Digestão"], correta: "Produção de alimento" }
+  ],
+  ingles: [
+    { pergunta: "O que significa 'apple'?", opcoes: ["Banana", "Maçã", "Uva", "Pera"], correta: "Maçã" },
+    { pergunta: "Como se diz 'livro' em inglês?", opcoes: ["Book", "Look", "Bag", "Table"], correta: "Book" },
+    { pergunta: "What is the plural of 'child'?", opcoes: ["Childs", "Children", "Childer", "Childes"], correta: "Children" },
+    { pergunta: "Traduza: 'She is reading a book.'", opcoes: ["Ela lê um livro", "Ela está lendo um livro", "Ela escreveu um livro", "Ela comprou um livro"], correta: "Ela está lendo um livro" },
+    { pergunta: "Past of 'go' is:", opcoes: ["Gone", "Goed", "Went", "Go"], correta: "Went" },
+    { pergunta: "Traduza: 'I don't like onions.'", opcoes: ["Eu gosto de cebolas", "Eu não gosto de cebolas", "Ele gosta de cebolas", "Eles comem cebolas"], correta: "Eu não gosto de cebolas" },
+    { pergunta: "What is 'house'?", opcoes: ["Casa", "Carro", "Rua", "Janela"], correta: "Casa" }
+  ],
   biologia: [
-    {
-      question: "Qual é a função dos ribossomos na célula?",
-      answers: [
-        { text: "Síntese de proteínas", correct: true },
-        { text: "Produção de energia", correct: false },
-        { text: "Armazenamento de água", correct: false },
-        { text: "Transporte de lipídios", correct: false },
-      ],
-    },
-    {
-      question: "O que é fotossíntese?",
-      answers: [
-        { text: "Processo de produção de energia pela luz", correct: true },
-        { text: "Respiração celular", correct: false },
-        { text: "Divisão celular", correct: false },
-        { text: "Decomposição de matéria orgânica", correct: false },
-      ],
-    },
-    {
-      question: "Qual é o material genético presente na maioria das células?",
-      answers: [
-        { text: "DNA", correct: true },
-        { text: "RNA", correct: false },
-        { text: "Proteínas", correct: false },
-        { text: "Lipídios", correct: false },
-      ],
-    },
-    {
-      question: "Qual a principal função dos glóbulos vermelhos?",
-      answers: [
-        { text: "Transportar oxigênio", correct: true },
-        { text: "Defender contra infecções", correct: false },
-        { text: "Coagular sangue", correct: false },
-        { text: "Produzir hormônios", correct: false },
-      ],
-    },
-    {
-      question: "Qual é o órgão responsável pela produção de insulina?",
-      answers: [
-        { text: "Pâncreas", correct: true },
-        { text: "Fígado", correct: false },
-        { text: "Rim", correct: false },
-        { text: "Estômago", correct: false },
-      ],
-    },
-    {
-      question: "O que é a teoria da evolução?",
-      answers: [
-        { text: "Mudança das espécies ao longo do tempo", correct: true },
-        { text: "Criação do mundo em 7 dias", correct: false },
-        { text: "Teoria do Big Bang", correct: false },
-        { text: "Mutação genética", correct: false },
-      ],
-    },
-    {
-      question: "Qual é o nome do processo de divisão celular que gera células filhas idênticas?",
-      answers: [
-        { text: "Mitose", correct: true },
-        { text: "Meiose", correct: false },
-        { text: "Fissão binária", correct: false },
-        { text: "Clivagem", correct: false },
-      ],
-    },
+    { pergunta: "O que é DNA?", opcoes: ["Proteína", "Material genético", "Hormônio", "Célula"], correta: "Material genético" },
+    { pergunta: "Qual célula realiza fotossíntese?", opcoes: ["Animal", "Vegetal", "Bactéria", "Vírus"], correta: "Vegetal" },
+    { pergunta: "Qual órgão filtra o sangue?", opcoes: ["Coração", "Pulmão", "Rim", "Fígado"], correta: "Rim" },
+    { pergunta: "O que são cromossomos?", opcoes: ["Genes", "Moléculas de DNA", "Proteínas", "Vitaminas"], correta: "Moléculas de DNA" },
+    { pergunta: "Quantos cromossomos humanos existem?", opcoes: ["44", "23", "46", "48"], correta: "46" },
+    { pergunta: "O que é mitose?", opcoes: ["Divisão celular", "Digestão", "Respiração", "Fotossíntese"], correta: "Divisão celular" },
+    { pergunta: "Quem criou a teoria da evolução?", opcoes: ["Newton", "Darwin", "Einstein", "Galileu"], correta: "Darwin" }
   ],
-
-  literatura: [
-    {
-      question: "Quem escreveu 'Dom Casmurro'?",
-      answers: [
-        { text: "Machado de Assis", correct: true },
-        { text: "José de Alencar", correct: false },
-        { text: "Carlos Drummond de Andrade", correct: false },
-        { text: "Clarice Lispector", correct: false },
-      ],
-    },
-    {
-      question: "Qual movimento literário pertence à obra 'Memórias Póstumas de Brás Cubas'?",
-      answers: [
-        { text: "Realismo", correct: true },
-        { text: "Romantismo", correct: false },
-        { text: "Modernismo", correct: false },
-        { text: "Barroco", correct: false },
-      ],
-    },
-    {
-      question: "Qual autor é conhecido por poesias modernistas brasileiras?",
-      answers: [
-        { text: "Carlos Drummond de Andrade", correct: true },
-        { text: "Machado de Assis", correct: false },
-        { text: "Vinicius de Moraes", correct: false },
-        { text: "Manuel Bandeira", correct: false },
-      ],
-    },
-    {
-      question: "Qual obra é considerada o marco inicial do Modernismo no Brasil?",
-      answers: [
-        { text: "Semana de Arte Moderna de 1922", correct: true },
-        { text: "Memórias Póstumas de Brás Cubas", correct: false },
-        { text: "O Guarani", correct: false },
-        { text: "Iracema", correct: false },
-      ],
-    },
-    {
-      question: "Quem escreveu 'O Primo Basílio'?",
-      answers: [
-        { text: "José Maria de Eça de Queirós", correct: true },
-        { text: "Machado de Assis", correct: false },
-        { text: "Aluísio Azevedo", correct: false },
-        { text: "Castro Alves", correct: false },
-      ],
-    },
-    {
-      question: "Qual poeta brasileiro é conhecido como 'Poeta do Amor'?",
-      answers: [
-        { text: "Vinicius de Moraes", correct: true },
-        { text: "Carlos Drummond de Andrade", correct: false },
-        { text: "Manuel Bandeira", correct: false },
-        { text: "Cecília Meireles", correct: false },
-      ],
-    },
-    {
-      question: "O que caracteriza o Barroco na literatura?",
-      answers: [
-        { text: "Contraste, dualidade e religiosidade", correct: true },
-        { text: "Romantismo e emoção", correct: false },
-        { text: "Racionalismo e simplicidade", correct: false },
-        { text: "Modernidade e experimentação", correct: false },
-      ],
-    },
-  ],
+  quimica: [
+    { pergunta: "O que é H2SO4?", opcoes: ["Ácido sulfúrico", "Água", "Sal", "Glicose"], correta: "Ácido sulfúrico" },
+    { pergunta: "O que é pH?", opcoes: ["Pressão", "Potencial de Hidrogênio", "Temperatura", "Peso"], correta: "Potencial de Hidrogênio" },
+    { pergunta: "Água é polar ou apolar?", opcoes: ["Polar", "Apolar", "Neutra", "Ácida"], correta: "Polar" },
+    { pergunta: "Qual é o símbolo do sódio?", opcoes: ["Na", "S", "So", "N"], correta: "Na" },
+    { pergunta: "Qual é a fórmula do sal de cozinha?", opcoes: ["NaCl", "KCl", "H2O", "CO2"], correta: "NaCl" },
+    { pergunta: "Qual é o estado do cloro à temperatura ambiente?", opcoes: ["Gasoso", "Sólido", "Líquido", "Plasma"], correta: "Gasoso" },
+    { pergunta: "Qual o elemento mais abundante no universo?", opcoes: ["Oxigênio", "Hidrogênio", "Carbono", "Hélio"], correta: "Hidrogênio" }
+  ]
 };
+
+function startQuiz(materia) {
+  currentQuiz = quizzes[materia];
+  currentIndex = 0;
+  showQuestion();
+  document.querySelector(".card-container").classList.add("hidden");
+  quizContainer.classList.remove("hidden");
+}
+
+function showQuestion() {
+  const q = currentQuiz[currentIndex];
+  questionEl.textContent = q.pergunta;
+  optionsEl.innerHTML = "";
+  q.opcoes.forEach(op => {
+    const btn = document.createElement("button");
+    btn.textContent = op;
+    btn.onclick = () => {
+      if (op === q.correta) {
+        btn.style.backgroundColor = "#4CAF50";
+      } else {
+        btn.style.backgroundColor = "#F44336";
+      }
+    };
+    optionsEl.appendChild(btn);
+  });
+}
+
+function nextQuestion() {
+  if (currentIndex < currentQuiz.length - 1) {
+    currentIndex++;
+    showQuestion();
+  } else {
+    alert("Fim do quiz!");
+    goBack();
+  }
+}
+
+function goBack() {
+  quizContainer.classList.add("hidden");
+  document.querySelector(".card-container").classList.remove("hidden");
+}
