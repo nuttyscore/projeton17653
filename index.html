@@ -1,30 +1,41 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quiz Escolar - Escolha o Tema</title>
+  <title>Quiz Interativo - Escolha sua Matéria</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>🎓 Quiz Escolar Interativo</h1>
-    <div class="card-container">
-      <div class="card" onclick="selectTheme('matematica')">📊 Matemática</div>
-      <div class="card" onclick="selectTheme('portugues')">📝 Português</div>
-      <div class="card" onclick="selectTheme('historia')">🏰 História</div>
-      <div class="card" onclick="selectTheme('geografia')">🌍 Geografia</div>
-      <div class="card" onclick="selectTheme('ciencias')">🔬 Ciências</div>
-      <div class="card" onclick="selectTheme('ingles')">💬 Inglês</div>
-      <div class="card" onclick="selectTheme('artes')">🎨 Artes</div>
-      <div class="card" onclick="selectTheme('fisica')">⚛️ Física</div>
+    <h1>Escolha sua Matéria</h1>
+    <div class="cards">
+      <div class="card" data-quiz="matematica" style="--bg: linear-gradient(135deg, #667eea, #764ba2)">
+        <h2>Matemática</h2>
+      </div>
+      <div class="card" data-quiz="historia" style="--bg: linear-gradient(135deg, #f7971e, #ffd200)">
+        <h2>História</h2>
+      </div>
+      <div class="card" data-quiz="biologia" style="--bg: linear-gradient(135deg, #43cea2, #185a9d)">
+        <h2>Biologia</h2>
+      </div>
+      <div class="card" data-quiz="literatura" style="--bg: linear-gradient(135deg, #ee9ca7, #ffdde1)">
+        <h2>Literatura</h2>
+      </div>
     </div>
   </div>
 
-  <script>
-    function selectTheme(theme) {
-      window.location.href = `quiz.html?tema=${theme}`;
-    }
-  </script>
+  <div class="quiz-container hidden">
+    <button id="btn-back">← Voltar para as matérias</button>
+    <div id="quiz">
+      <div id="question"></div>
+      <ul id="answers"></ul>
+    </div>
+    <button id="btn-next" class="hidden">Próxima pergunta</button>
+    <button id="btn-finish" class="hidden">Finalizar Quiz</button>
+  </div>
+
+  <script src="quiz.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

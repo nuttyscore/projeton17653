@@ -1,26 +1,265 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quiz</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
-    <h1 id="quiz-title">Carregando...</h1>
-    <div id="quiz-container">
-      <p id="question">Pergunta</p>
-      <div id="answers"></div>
+const quizzes = {
+  matematica: [
+    {
+      question: "Qual é a derivada de f(x) = x³ - 5x² + 6x - 2?",
+      answers: [
+        { text: "3x² - 10x + 6", correct: true },
+        { text: "3x² - 5x + 6", correct: false },
+        { text: "x³ - 10x + 6", correct: false },
+        { text: "3x³ - 10x² + 6x", correct: false },
+      ],
+    },
+    {
+      question: "Qual é o valor de ∫(2x + 3) dx?",
+      answers: [
+        { text: "x² + 3x + C", correct: true },
+        { text: "2x² + 3 + C", correct: false },
+        { text: "x² + 3 + C", correct: false },
+        { text: "2x + 3 + C", correct: false },
+      ],
+    },
+    {
+      question: "Se A = {1,2,3} e B = {3,4,5}, qual é A ∩ B?",
+      answers: [
+        { text: "{3}", correct: true },
+        { text: "{1,2}", correct: false },
+        { text: "{4,5}", correct: false },
+        { text: "{1,2,3,4,5}", correct: false },
+      ],
+    },
+    {
+      question: "Qual o resultado de log₁₀(1000)?",
+      answers: [
+        { text: "3", correct: true },
+        { text: "10", correct: false },
+        { text: "1000", correct: false },
+        { text: "1", correct: false },
+      ],
+    },
+    {
+      question: "Qual é a solução da equação 2x + 3 = 11?",
+      answers: [
+        { text: "4", correct: true },
+        { text: "5", correct: false },
+        { text: "3", correct: false },
+        { text: "6", correct: false },
+      ],
+    },
+    {
+      question: "Qual é o número primo seguinte a 31?",
+      answers: [
+        { text: "37", correct: true },
+        { text: "33", correct: false },
+        { text: "35", correct: false },
+        { text: "39", correct: false },
+      ],
+    },
+    {
+      question: "Qual é o valor do determinante da matriz [[2,3],[1,4]]?",
+      answers: [
+        { text: "5", correct: true },
+        { text: "10", correct: false },
+        { text: "11", correct: false },
+        { text: "6", correct: false },
+      ],
+    },
+  ],
 
-      <button id="next-btn" onclick="nextQuestion()" style="display:none">Próxima</button>
-      <p id="score"></p>
+  historia: [
+    {
+      question: "Em que ano ocorreu a Revolução Francesa?",
+      answers: [
+        { text: "1789", correct: true },
+        { text: "1776", correct: false },
+        { text: "1804", correct: false },
+        { text: "1799", correct: false },
+      ],
+    },
+    {
+      question: "Quem foi o imperador romano durante o ano 54 d.C.?",
+      answers: [
+        { text: "Nero", correct: true },
+        { text: "Augusto", correct: false },
+        { text: "Calígula", correct: false },
+        { text: "Trajano", correct: false },
+      ],
+    },
+    {
+      question: "Qual guerra foi conhecida como a 'Guerra dos Cem Anos'?",
+      answers: [
+        { text: "Conflito entre Inglaterra e França", correct: true },
+        { text: "Guerra entre Roma e Cartago", correct: false },
+        { text: "Guerra Civil Americana", correct: false },
+        { text: "Guerra Fria", correct: false },
+      ],
+    },
+    {
+      question: "Quem foi o líder da independência do Brasil?",
+      answers: [
+        { text: "Dom Pedro I", correct: true },
+        { text: "Tiradentes", correct: false },
+        { text: "Getúlio Vargas", correct: false },
+        { text: "José Bonifácio", correct: false },
+      ],
+    },
+    {
+      question: "Em que ano terminou a Segunda Guerra Mundial?",
+      answers: [
+        { text: "1945", correct: true },
+        { text: "1939", correct: false },
+        { text: "1918", correct: false },
+        { text: "1950", correct: false },
+      ],
+    },
+    {
+      question: "Qual civilização construiu as pirâmides do Egito?",
+      answers: [
+        { text: "Egípcia", correct: true },
+        { text: "Mesopotâmica", correct: false },
+        { text: "Inca", correct: false },
+        { text: "Asteca", correct: false },
+      ],
+    },
+    {
+      question: "Quem foi o responsável pela queda do Muro de Berlim?",
+      answers: [
+        { text: "Mikhail Gorbachev", correct: true },
+        { text: "Winston Churchill", correct: false },
+        { text: "Ronald Reagan", correct: false },
+        { text: "John F. Kennedy", correct: false },
+      ],
+    },
+  ],
 
-      <button id="back-btn" onclick="window.location.href='index.html'" style="display:none">🔙 Voltar</button>
-      <button id="next-quiz-btn" onclick="proximoQuiz()" style="display:none">➡️ Próximo Tema</button>
-    </div>
-  </div>
+  biologia: [
+    {
+      question: "Qual é a função dos ribossomos na célula?",
+      answers: [
+        { text: "Síntese de proteínas", correct: true },
+        { text: "Produção de energia", correct: false },
+        { text: "Armazenamento de água", correct: false },
+        { text: "Transporte de lipídios", correct: false },
+      ],
+    },
+    {
+      question: "O que é fotossíntese?",
+      answers: [
+        { text: "Processo de produção de energia pela luz", correct: true },
+        { text: "Respiração celular", correct: false },
+        { text: "Divisão celular", correct: false },
+        { text: "Decomposição de matéria orgânica", correct: false },
+      ],
+    },
+    {
+      question: "Qual é o material genético presente na maioria das células?",
+      answers: [
+        { text: "DNA", correct: true },
+        { text: "RNA", correct: false },
+        { text: "Proteínas", correct: false },
+        { text: "Lipídios", correct: false },
+      ],
+    },
+    {
+      question: "Qual a principal função dos glóbulos vermelhos?",
+      answers: [
+        { text: "Transportar oxigênio", correct: true },
+        { text: "Defender contra infecções", correct: false },
+        { text: "Coagular sangue", correct: false },
+        { text: "Produzir hormônios", correct: false },
+      ],
+    },
+    {
+      question: "Qual é o órgão responsável pela produção de insulina?",
+      answers: [
+        { text: "Pâncreas", correct: true },
+        { text: "Fígado", correct: false },
+        { text: "Rim", correct: false },
+        { text: "Estômago", correct: false },
+      ],
+    },
+    {
+      question: "O que é a teoria da evolução?",
+      answers: [
+        { text: "Mudança das espécies ao longo do tempo", correct: true },
+        { text: "Criação do mundo em 7 dias", correct: false },
+        { text: "Teoria do Big Bang", correct: false },
+        { text: "Mutação genética", correct: false },
+      ],
+    },
+    {
+      question: "Qual é o nome do processo de divisão celular que gera células filhas idênticas?",
+      answers: [
+        { text: "Mitose", correct: true },
+        { text: "Meiose", correct: false },
+        { text: "Fissão binária", correct: false },
+        { text: "Clivagem", correct: false },
+      ],
+    },
+  ],
 
-  <script src="script.js"></script>
-</body>
-</html>
+  literatura: [
+    {
+      question: "Quem escreveu 'Dom Casmurro'?",
+      answers: [
+        { text: "Machado de Assis", correct: true },
+        { text: "José de Alencar", correct: false },
+        { text: "Carlos Drummond de Andrade", correct: false },
+        { text: "Clarice Lispector", correct: false },
+      ],
+    },
+    {
+      question: "Qual movimento literário pertence à obra 'Memórias Póstumas de Brás Cubas'?",
+      answers: [
+        { text: "Realismo", correct: true },
+        { text: "Romantismo", correct: false },
+        { text: "Modernismo", correct: false },
+        { text: "Barroco", correct: false },
+      ],
+    },
+    {
+      question: "Qual autor é conhecido por poesias modernistas brasileiras?",
+      answers: [
+        { text: "Carlos Drummond de Andrade", correct: true },
+        { text: "Machado de Assis", correct: false },
+        { text: "Vinicius de Moraes", correct: false },
+        { text: "Manuel Bandeira", correct: false },
+      ],
+    },
+    {
+      question: "Qual obra é considerada o marco inicial do Modernismo no Brasil?",
+      answers: [
+        { text: "Semana de Arte Moderna de 1922", correct: true },
+        { text: "Memórias Póstumas de Brás Cubas", correct: false },
+        { text: "O Guarani", correct: false },
+        { text: "Iracema", correct: false },
+      ],
+    },
+    {
+      question: "Quem escreveu 'O Primo Basílio'?",
+      answers: [
+        { text: "José Maria de Eça de Queirós", correct: true },
+        { text: "Machado de Assis", correct: false },
+        { text: "Aluísio Azevedo", correct: false },
+        { text: "Castro Alves", correct: false },
+      ],
+    },
+    {
+      question: "Qual poeta brasileiro é conhecido como 'Poeta do Amor'?",
+      answers: [
+        { text: "Vinicius de Moraes", correct: true },
+        { text: "Carlos Drummond de Andrade", correct: false },
+        { text: "Manuel Bandeira", correct: false },
+        { text: "Cecília Meireles", correct: false },
+      ],
+    },
+    {
+      question: "O que caracteriza o Barroco na literatura?",
+      answers: [
+        { text: "Contraste, dualidade e religiosidade", correct: true },
+        { text: "Romantismo e emoção", correct: false },
+        { text: "Racionalismo e simplicidade", correct: false },
+        { text: "Modernidade e experimentação", correct: false },
+      ],
+    },
+  ],
+};
