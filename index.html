@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quiz do Cleverson - Estudo Interativo</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz do Cleverson - Escolha o Tema</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>🧠 Quiz de Geografia do Cleverson</h1>
-    <div id="quiz-container">
-      <p id="question">Carregando pergunta...</p>
-      <div id="answers"></div>
-      <button id="next-btn" onclick="nextQuestion()">Próxima</button>
+    <h1>📚 Estude com o Quiz do Cleverson</h1>
+    <div class="card-container">
+      <div class="card" onclick="selectTheme('geografia')">🌍 Geografia</div>
+      <div class="card" onclick="selectTheme('historia')">🏛️ História</div>
+      <div class="card" onclick="selectTheme('matematica')">📐 Matemática</div>
+      <div class="card" onclick="selectTheme('ingles')">🗣️ Inglês</div>
     </div>
-    <p id="score"></p>
   </div>
-  <script src="script.js"></script>
+  <script>
+    function selectTheme(theme) {
+      window.location.href = `quiz.html?tema=${theme}`;
+    }
+  </script>
 </body>
 </html>
-

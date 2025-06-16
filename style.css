@@ -1,50 +1,68 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #111;
-  color: #eee;
+  font-family: 'Segoe UI', sans-serif;
+  background: #0f0f0f;
+  color: #ffffff;
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .container {
-  background-color: #1e1e1e;
-  padding: 20px;
-  border-radius: 15px;
   width: 90%;
-  max-width: 500px;
+  max-width: 600px;
   text-align: center;
-  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  padding: 20px;
 }
 
-button {
-  background: #00c853;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin-top: 15px;
-  font-size: 16px;
-  border-radius: 10px;
+h1 {
+  margin-bottom: 20px;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: #222;
+  padding: 20px;
+  border-radius: 12px;
   cursor: pointer;
+  transition: 0.3s;
+  font-size: 1.2em;
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
 }
 
-button:hover {
-  background: #00e676;
-}
-
-.answer {
-  margin: 10px 0;
+.card:hover {
   background: #333;
+  transform: scale(1.05);
+}
+
+#answers .answer {
+  background: #292929;
   padding: 10px;
   border-radius: 8px;
+  margin: 10px 0;
   cursor: pointer;
   transition: background 0.3s;
 }
 
-.answer:hover {
-  background: #555;
+#answers .answer:hover {
+  background: #444;
 }
 
+#next-btn {
+  background: #00e676;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1em;
+  margin-top: 15px;
+  display: none;
+  cursor: pointer;
+}
