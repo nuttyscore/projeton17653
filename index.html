@@ -1,31 +1,30 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quiz Educacional</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz Escolar - Escolha o Tema</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Escolha uma Matéria</h1>
-  <div class="card-container">
-    <button class="card" onclick="startQuiz('matematica')">Matemática</button>
-    <button class="card" onclick="startQuiz('portugues')">Português</button>
-    <button class="card" onclick="startQuiz('historia')">História</button>
-    <button class="card" onclick="startQuiz('geografia')">Geografia</button>
-    <button class="card" onclick="startQuiz('ciencias')">Ciências</button>
-    <button class="card" onclick="startQuiz('ingles')">Inglês</button>
-    <button class="card" onclick="startQuiz('biologia')">Biologia</button>
-    <button class="card" onclick="startQuiz('quimica')">Química</button>
+  <div class="container">
+    <h1>🎓 Quiz Escolar Interativo</h1>
+    <div class="card-container">
+      <div class="card" onclick="selectTheme('matematica')">📊 Matemática</div>
+      <div class="card" onclick="selectTheme('portugues')">📝 Português</div>
+      <div class="card" onclick="selectTheme('historia')">🏰 História</div>
+      <div class="card" onclick="selectTheme('geografia')">🌍 Geografia</div>
+      <div class="card" onclick="selectTheme('ciencias')">🔬 Ciências</div>
+      <div class="card" onclick="selectTheme('ingles')">💬 Inglês</div>
+      <div class="card" onclick="selectTheme('artes')">🎨 Artes</div>
+      <div class="card" onclick="selectTheme('fisica')">⚛️ Física</div>
+    </div>
   </div>
 
-  <div id="quiz-container" class="hidden">
-    <h2 id="question"></h2>
-    <div id="options"></div>
-    <button id="next-btn" onclick="nextQuestion()">Próxima</button>
-    <button id="back-btn" onclick="goBack()">Voltar</button>
-  </div>
-
-  <script src="quiz.js"></script>
+  <script>
+    function selectTheme(theme) {
+      window.location.href = `quiz.html?tema=${theme}`;
+    }
+  </script>
 </body>
 </html>

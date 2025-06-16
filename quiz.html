@@ -1,122 +1,27 @@
-const quizContainer = document.getElementById("quiz-container");
-const questionEl = document.getElementById("question");
-const optionsEl = document.getElementById("options");
 
-let currentQuiz = [];
-let currentIndex = 0;
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1 id="quiz-title">Carregando...</h1>
+    <div id="quiz-container">
+      <p id="question">Pergunta</p>
+      <div id="answers"></div>
 
-const quizzes = {
-  matematica: [
-    { pergunta: "Qual é o valor de π (pi) aproximado?", opcoes: ["3,14", "2,71", "1,61", "4,20"], correta: "3,14" },
-    { pergunta: "Qual a derivada de x²?", opcoes: ["x", "2x", "x²", "1"], correta: "2x" },
-    { pergunta: "Quanto é a raiz cúbica de 27?", opcoes: ["3", "9", "6", "4"], correta: "3" },
-    { pergunta: "Qual a fórmula da área do círculo?", opcoes: ["πr²", "2πr", "r²", "πd"], correta: "πr²" },
-    { pergunta: "Quantos graus tem um triângulo?", opcoes: ["180°", "360°", "90°", "120°"], correta: "180°" },
-    { pergunta: "O que representa log(100)?", opcoes: ["10", "2", "100", "1"], correta: "2" },
-    { pergunta: "Integral de 1/x é?", opcoes: ["ln(x)", "1", "x", "x²"], correta: "ln(x)" }
-  ],
-  portugues: [
-    { pergunta: "O que é uma metáfora?", opcoes: ["Repetição", "Comparação implícita", "Rima", "Verbo"], correta: "Comparação implícita" },
-    { pergunta: "Qual é o sujeito da frase: 'Chove muito hoje'?", opcoes: ["Oculto", "Simples", "Inexistente", "Composto"], correta: "Inexistente" },
-    { pergunta: "Qual é o plural de 'cidadão'?", opcoes: ["Cidadãos", "Cidadães", "Cidades", "Cidadões"], correta: "Cidadãos" },
-    { pergunta: "Qual é a função da vírgula?", opcoes: ["Separar elementos", "Unir frases", "Indicar fim", "Nada"], correta: "Separar elementos" },
-    { pergunta: "Qual o tempo verbal: 'Eu teria ido'?", opcoes: ["Futuro", "Pretérito", "Condicional", "Presente"], correta: "Condicional" },
-    { pergunta: "Qual é a classe da palavra 'rapidamente'?", opcoes: ["Adjetivo", "Verbo", "Advérbio", "Substantivo"], correta: "Advérbio" },
-    { pergunta: "Qual é a voz da frase: 'O carro foi consertado pelo mecânico'?", opcoes: ["Ativa", "Passiva", "Reflexiva", "Inexistente"], correta: "Passiva" }
-  ],
-  historia: [
-    { pergunta: "Em que ano começou a 2ª Guerra Mundial?", opcoes: ["1939", "1945", "1914", "1920"], correta: "1939" },
-    { pergunta: "Quem foi Tiradentes?", opcoes: ["Imperador", "Revolucionário", "Presidente", "Militar"], correta: "Revolucionário" },
-    { pergunta: "O que foi a Revolução Francesa?", opcoes: ["Conflito mundial", "Conflito contra a monarquia", "Invasão", "Crise de petróleo"], correta: "Conflito contra a monarquia" },
-    { pergunta: "Quem descobriu o Brasil?", opcoes: ["Pedro Álvares Cabral", "Dom Pedro", "Cabral Machado", "Cristóvão Colombo"], correta: "Pedro Álvares Cabral" },
-    { pergunta: "Qual império caiu em 476 d.C.?", opcoes: ["Romano", "Grego", "Chinês", "Egípcio"], correta: "Romano" },
-    { pergunta: "Qual foi o principal motivo da Guerra Fria?", opcoes: ["Corrida espacial", "Ideologias", "Petróleo", "Colonização"], correta: "Ideologias" },
-    { pergunta: "Quem foi Napoleão Bonaparte?", opcoes: ["Cientista", "Imperador francês", "Papa", "Ditador alemão"], correta: "Imperador francês" }
-  ],
-  geografia: [
-    { pergunta: "Qual é o maior país do mundo?", opcoes: ["Canadá", "Brasil", "China", "Rússia"], correta: "Rússia" },
-    { pergunta: "O que é uma cordilheira?", opcoes: ["Grupo de rios", "Montanhas alinhadas", "Região de planalto", "Floresta"], correta: "Montanhas alinhadas" },
-    { pergunta: "Qual é o bioma da Amazônia?", opcoes: ["Cerrado", "Mata Atlântica", "Floresta Tropical", "Caatinga"], correta: "Floresta Tropical" },
-    { pergunta: "O que é latitude?", opcoes: ["Distância do meridiano", "Distância do equador", "Altura", "Profundidade"], correta: "Distância do equador" },
-    { pergunta: "Qual país tem mais fusos horários?", opcoes: ["EUA", "Brasil", "China", "Rússia"], correta: "Rússia" },
-    { pergunta: "Qual é o maior oceano?", opcoes: ["Atlântico", "Índico", "Pacífico", "Ártico"], correta: "Pacífico" },
-    { pergunta: "O que é um terremoto?", opcoes: ["Vento forte", "Tremor da crosta", "Tsunami", "Erupção"], correta: "Tremor da crosta" }
-  ],
-  ciencias: [
-    { pergunta: "Qual é a fórmula da água?", opcoes: ["H2O", "CO2", "O2", "NaCl"], correta: "H2O" },
-    { pergunta: "Qual planeta é conhecido como 'planeta vermelho'?", opcoes: ["Terra", "Marte", "Júpiter", "Vênus"], correta: "Marte" },
-    { pergunta: "Qual gás respiramos?", opcoes: ["Hidrogênio", "Oxigênio", "Gás Carbônico", "Nitrogênio"], correta: "Oxigênio" },
-    { pergunta: "O que são fósseis?", opcoes: ["Animais vivos", "Restos preservados", "Plantas", "Rochas"], correta: "Restos preservados" },
-    { pergunta: "Qual é a camada mais externa da Terra?", opcoes: ["Manto", "Crosta", "Núcleo", "Atmosfera"], correta: "Crosta" },
-    { pergunta: "Qual a fonte primária de energia da Terra?", opcoes: ["Lua", "Sol", "Fogo", "Vento"], correta: "Sol" },
-    { pergunta: "O que é fotossíntese?", opcoes: ["Respiração", "Produção de alimento", "Evaporação", "Digestão"], correta: "Produção de alimento" }
-  ],
-  ingles: [
-    { pergunta: "O que significa 'apple'?", opcoes: ["Banana", "Maçã", "Uva", "Pera"], correta: "Maçã" },
-    { pergunta: "Como se diz 'livro' em inglês?", opcoes: ["Book", "Look", "Bag", "Table"], correta: "Book" },
-    { pergunta: "What is the plural of 'child'?", opcoes: ["Childs", "Children", "Childer", "Childes"], correta: "Children" },
-    { pergunta: "Traduza: 'She is reading a book.'", opcoes: ["Ela lê um livro", "Ela está lendo um livro", "Ela escreveu um livro", "Ela comprou um livro"], correta: "Ela está lendo um livro" },
-    { pergunta: "Past of 'go' is:", opcoes: ["Gone", "Goed", "Went", "Go"], correta: "Went" },
-    { pergunta: "Traduza: 'I don't like onions.'", opcoes: ["Eu gosto de cebolas", "Eu não gosto de cebolas", "Ele gosta de cebolas", "Eles comem cebolas"], correta: "Eu não gosto de cebolas" },
-    { pergunta: "What is 'house'?", opcoes: ["Casa", "Carro", "Rua", "Janela"], correta: "Casa" }
-  ],
-  biologia: [
-    { pergunta: "O que é DNA?", opcoes: ["Proteína", "Material genético", "Hormônio", "Célula"], correta: "Material genético" },
-    { pergunta: "Qual célula realiza fotossíntese?", opcoes: ["Animal", "Vegetal", "Bactéria", "Vírus"], correta: "Vegetal" },
-    { pergunta: "Qual órgão filtra o sangue?", opcoes: ["Coração", "Pulmão", "Rim", "Fígado"], correta: "Rim" },
-    { pergunta: "O que são cromossomos?", opcoes: ["Genes", "Moléculas de DNA", "Proteínas", "Vitaminas"], correta: "Moléculas de DNA" },
-    { pergunta: "Quantos cromossomos humanos existem?", opcoes: ["44", "23", "46", "48"], correta: "46" },
-    { pergunta: "O que é mitose?", opcoes: ["Divisão celular", "Digestão", "Respiração", "Fotossíntese"], correta: "Divisão celular" },
-    { pergunta: "Quem criou a teoria da evolução?", opcoes: ["Newton", "Darwin", "Einstein", "Galileu"], correta: "Darwin" }
-  ],
-  quimica: [
-    { pergunta: "O que é H2SO4?", opcoes: ["Ácido sulfúrico", "Água", "Sal", "Glicose"], correta: "Ácido sulfúrico" },
-    { pergunta: "O que é pH?", opcoes: ["Pressão", "Potencial de Hidrogênio", "Temperatura", "Peso"], correta: "Potencial de Hidrogênio" },
-    { pergunta: "Água é polar ou apolar?", opcoes: ["Polar", "Apolar", "Neutra", "Ácida"], correta: "Polar" },
-    { pergunta: "Qual é o símbolo do sódio?", opcoes: ["Na", "S", "So", "N"], correta: "Na" },
-    { pergunta: "Qual é a fórmula do sal de cozinha?", opcoes: ["NaCl", "KCl", "H2O", "CO2"], correta: "NaCl" },
-    { pergunta: "Qual é o estado do cloro à temperatura ambiente?", opcoes: ["Gasoso", "Sólido", "Líquido", "Plasma"], correta: "Gasoso" },
-    { pergunta: "Qual o elemento mais abundante no universo?", opcoes: ["Oxigênio", "Hidrogênio", "Carbono", "Hélio"], correta: "Hidrogênio" }
-  ]
-};
+      <button id="next-btn" onclick="nextQuestion()" style="display:none">Próxima</button>
+      <p id="score"></p>
 
-function startQuiz(materia) {
-  currentQuiz = quizzes[materia];
-  currentIndex = 0;
-  showQuestion();
-  document.querySelector(".card-container").classList.add("hidden");
-  quizContainer.classList.remove("hidden");
-}
+      <button id="back-btn" onclick="window.location.href='index.html'" style="display:none">🔙 Voltar</button>
+      <button id="next-quiz-btn" onclick="proximoQuiz()" style="display:none">➡️ Próximo Tema</button>
+    </div>
+  </div>
 
-function showQuestion() {
-  const q = currentQuiz[currentIndex];
-  questionEl.textContent = q.pergunta;
-  optionsEl.innerHTML = "";
-  q.opcoes.forEach(op => {
-    const btn = document.createElement("button");
-    btn.textContent = op;
-    btn.onclick = () => {
-      if (op === q.correta) {
-        btn.style.backgroundColor = "#4CAF50";
-      } else {
-        btn.style.backgroundColor = "#F44336";
-      }
-    };
-    optionsEl.appendChild(btn);
-  });
-}
-
-function nextQuestion() {
-  if (currentIndex < currentQuiz.length - 1) {
-    currentIndex++;
-    showQuestion();
-  } else {
-    alert("Fim do quiz!");
-    goBack();
-  }
-}
-
-function goBack() {
-  quizContainer.classList.add("hidden");
-  document.querySelector(".card-container").classList.remove("hidden");
-}
+  <script src="script.js"></script>
+</body>
+</html>
