@@ -1,7 +1,7 @@
 const quizzes = [
   {
     name: 'Ciências',
-    time: 60, // segundos para a matéria
+    time: 60,
     questions: [
       {
         question: "Qual a principal função das mitocôndrias nas células?",
@@ -12,6 +12,7 @@ const quizzes = [
           { text: "Armazenar água", correct: false }
         ]
       },
+      // ... mais perguntas Ciências, no mínimo 7, igual antes
       {
         question: "O que é fotossíntese?",
         answers: [
@@ -72,6 +73,7 @@ const quizzes = [
     name: 'Inglês',
     time: 60,
     questions: [
+      // mesmas perguntas do inglês, 7 ou mais perguntas difíceis
       {
         question: "What is the past tense of 'go'?",
         answers: [
@@ -141,6 +143,7 @@ const quizzes = [
     name: 'Artes',
     time: 60,
     questions: [
+      // mesmas perguntas Artes (7+)
       {
         question: "Quem pintou a Mona Lisa?",
         answers: [
@@ -210,6 +213,7 @@ const quizzes = [
     name: 'Física',
     time: 60,
     questions: [
+      // perguntas física 7+
       {
         question: "O que é velocidade?",
         answers: [
@@ -277,48 +281,31 @@ const quizzes = [
   }
 ];
 
-// Variáveis globais
 let currentQuizIndex = 0;
 let currentQuestionIndex = 0;
 let timer;
 let timeRemaining;
 
-// Elementos DOM
-const container = document.querySelector('.container');
 const questionEl = document.getElementById('question');
 const answersEl = document.getElementById('answers');
 const timerEl = document.getElementById('timer');
 const controlsEl = document.getElementById('controls');
 const btnRestart = document.getElementById('btnRestart');
 const btnNextQuiz = document.getElementById('btnNextQuiz');
-const startQuizBtn = document.getElementById('startQuizBtn');
 
-if(startQuizBtn) {
-  startQuizBtn.addEventListener('click', startQuiz);
-}
+btnRestart.addEventListener('click', () => {
+  window.location.href = 'index.html';
+});
 
-if(btnRestart) {
-  btnRestart.addEventListener('click', () => {
-    window.location.href = 'index.html';
-  });
-}
-
-if(btnNextQuiz) {
-  btnNextQuiz.addEventListener('click', () => {
-    currentQuizIndex++;
-    if (currentQuizIndex >= quizzes.length) {
-      currentQuizIndex = 0;
-    }
-    currentQuestionIndex = 0;
-    controlsEl.style.display = 'none';
-    startQuiz();
-  });
-}
+btnNextQuiz.addEventListener('click', () => {
+  currentQuizIndex++;
+  if (currentQuizIndex >= quizzes.length) currentQuizIndex = 0;
+  currentQuestionIndex = 0;
+  controlsEl.style.display = 'none';
+  startQuiz();
+});
 
 function startQuiz() {
-  if(startQuizBtn) {
-    startQuizBtn.style.display = 'none';
-  }
   currentQuestionIndex = 0;
   timeRemaining = quizzes[currentQuizIndex].time;
   showTimer();
@@ -342,11 +329,9 @@ function showQuestion() {
 }
 
 function selectAnswer(correct) {
-  if(correct) {
-    // Você pode incrementar pontuação aqui, se quiser
-  }
+  // opcional: pontuação, animação etc.
   currentQuestionIndex++;
-  if(currentQuestionIndex < quizzes[currentQuizIndex].questions.length) {
+  if (currentQuestionIndex < quizzes[currentQuizIndex].questions.length) {
     showQuestion();
   } else {
     endQuiz();
@@ -358,7 +343,7 @@ function startTimer() {
   timer = setInterval(() => {
     timeRemaining--;
     timerEl.textContent = `Tempo restante: ${timeRemaining}s`;
-    if(timeRemaining <= 0) {
+    if (timeRemaining <= 0) {
       clearInterval(timer);
       endQuiz();
     }
@@ -376,3 +361,8 @@ function endQuiz() {
   timerEl.textContent = '';
   controlsEl.style.display = 'block';
 }
+
+// Quando carregar, começa o quiz direto
+window.onload = () => {
+  startQuiz();
+};
