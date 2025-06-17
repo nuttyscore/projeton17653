@@ -1,24 +1,23 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Quiz</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1 id="subject-title"></h1>
-    <div id="timer-container">
-      <div>Tempo: <span id="time">00:00</span></div>
-      <div>Pergunta <span id="current-question">0</span> de <span id="total-questions">0</span></div>
-    </div>
-    <div id="question"></div>
-    <div id="answers"></div>
+    <h1 id="quiz-title">Carregando...</h1>
+    <div id="quiz-container">
+      <p id="question">Pergunta</p>
+      <div id="answers"></div>
 
-    <div id="end-buttons">
-      <button id="btn-home">Voltar ao Início</button>
-      <button id="btn-next">Próxima Matéria</button>
+      <button id="next-btn" onclick="nextQuestion()" style="display:none">Próxima</button>
+      <p id="score"></p>
+
+      <button id="back-btn" onclick="window.location.href='index.html'" style="display:none">🔙 Voltar</button>
+      <button id="next-quiz-btn" onclick="proximoQuiz()" style="display:none">➡️ Próximo Tema</button>
     </div>
   </div>
 
