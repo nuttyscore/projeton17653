@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quiz Escolar - Escolha o Tema</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz Escolar</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>🎓 Quiz Escolar Interativo</h1>
-    <div class="card-container">
-      <div class="card" onclick="selectTheme('matematica')">📊 Matemática</div>
-      <div class="card" onclick="selectTheme('portugues')">📝 Português</div>
-      <div class="card" onclick="selectTheme('historia')">🏰 História</div>
-      <div class="card" onclick="selectTheme('geografia')">🌍 Geografia</div>
-      <div class="card" onclick="selectTheme('ciencias')">🔬 Ciências</div>
-      <div class="card" onclick="selectTheme('ingles')">💬 Inglês</div>
-      <div class="card" onclick="selectTheme('artes')">🎨 Artes</div>
-      <div class="card" onclick="selectTheme('fisica')">⚛️ Física</div>
-    </div>
+    <h1>Escolha um Tema</h1>
+    <div class="card" onclick="selectTheme('matematica')">📊 Matemática</div>
+    <div class="card" onclick="selectTheme('portugues')">📝 Português</div>
+    <div class="card" onclick="selectTheme('historia')">🏰 História</div>
+    <div class="card" onclick="selectTheme('geografia')">🌍 Geografia</div>
+    <div class="card" onclick="selectTheme('ciencias')">🔬 Ciências</div>
+    <div class="card" onclick="selectTheme('ingles')">💬 Inglês</div>
+    <div class="card" onclick="selectTheme('artes')">🎨 Artes</div>
+    <div class="card" onclick="selectTheme('fisica')">⚛️ Física</div>
+    <div class="card" onclick="selectTheme('matematica', true)">🔥 Modo Difícil</div>
   </div>
+
   <script>
-    function selectTheme(theme) {
-      window.location.href = `quiz.html?tema=${theme}`;
+    function selectTheme(theme, dificil = false) {
+      window.location.href = `quiz.html?tema=${theme}&dificil=${dificil}`;
     }
   </script>
 </body>
