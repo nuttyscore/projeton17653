@@ -1,68 +1,22 @@
-const todasAsPerguntas = [
-  // MATEMÁTICA
-  {
-    pergunta: "Qual é o logaritmo de 100 na base 10?",
-    opcoes: ["1", "2", "10", "100"],
-    resposta: "2"
-  },
-  {
-    pergunta: "O que representa a constante de Euler (e)?",
-    opcoes: ["≈2.718", "≈3.14", "≈1.618", "10"],
-    resposta: "≈2.718"
-  },
-  {
-    pergunta: "Quanto é o determinante da matriz [[1,2],[3,4]]?",
-    opcoes: ["-2", "10", "0", "5"],
-    resposta: "-2"
-  },
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quiz - Matéria</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container quiz-container">
+    <h2 id="subject-title">Quiz</h2>
+    <div id="question-container">
+      <div id="question">Carregando pergunta...</div>
+      <div id="answers" class="answers"></div>
+    </div>
+    <div id="timer">Tempo restante: <span id="time">00:00</span></div>
+    <div id="progress">Pergunta <span id="current-question">1</span> de <span id="total-questions">1</span></div>
+  </div>
 
-  // CIÊNCIAS
-  {
-    pergunta: "Qual é o processo inverso da fotossíntese?",
-    opcoes: ["Respiração celular", "Fermentação", "Evaporação", "Sublimação"],
-    resposta: "Respiração celular"
-  },
-  {
-    pergunta: "Onde ocorre a digestão de proteínas?",
-    opcoes: ["Estômago", "Boca", "Intestino grosso", "Fígado"],
-    resposta: "Estômago"
-  },
-  {
-    pergunta: "Qual cientista propôs o modelo atômico atual?",
-    opcoes: ["Schrödinger", "Bohr", "Dalton", "Thomson"],
-    resposta: "Schrödinger"
-  },
-
-  // HISTÓRIA
-  {
-    pergunta: "O que foi a Revolta da Armada?",
-    opcoes: ["Conflito naval contra o governo", "Revolução escrava", "Guerra com a Inglaterra", "Exploração marítima"],
-    resposta: "Conflito naval contra o governo"
-  },
-  {
-    pergunta: "Quem criou o socialismo científico?",
-    opcoes: ["Karl Marx", "Lenin", "Stalin", "Trotsky"],
-    resposta: "Karl Marx"
-  },
-  {
-    pergunta: "Qual foi a causa do fim da URSS?",
-    opcoes: ["Crise econômica e políticas de abertura", "Guerra nuclear", "Revolução Russa", "Independência da Sibéria"],
-    resposta: "Crise econômica e políticas de abertura"
-  },
-
-  // PORTUGUÊS
-  {
-    pergunta: "O que é uma oração subordinada adverbial condicional?",
-    opcoes: ["Expressa condição", "Expressa consequência", "Expressa tempo", "Expressa negação"],
-    resposta: "Expressa condição"
-  },
-  {
-    pergunta: "O que é metonímia?",
-    opcoes: ["Figura de linguagem de substituição", "Repetição de palavras", "Contraste de ideias", "Exagero"],
-    resposta: "Figura de linguagem de substituição"
-  },
-  {
-    pergunta: "Qual é o erro em 'Fazem dois anos que estudo aqui'?",
-    opcoes: ["Verbo no plural", "Verbo no passado", "Uso do 'que'", "Ortografia"],
-    resposta: "Verbo no plural"
-  }
+  <script src="script.js"></script>
+</body>
+</html>

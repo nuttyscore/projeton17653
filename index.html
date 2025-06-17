@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Quiz do Nachos Supremo</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quiz das Matérias</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>🔥 Quiz Insano das Matérias 🔥</h1>
-    <div id="temporizador">⏱ Tempo: 120s</div>
-    <div id="pergunta"></div>
-    <div id="opcoes"></div>
-    <div id="feedback"></div>
-    <div id="resultado" class="hidden">
-      <h2>🏁 Fim de Jogo!</h2>
-      <p id="pontuacao"></p>
-      <button onclick="recarregarQuiz()">Tentar Novamente</button>
+    <h1>Escolha a Matéria</h1>
+    <div class="cards-container">
+      <div class="card" data-subject="ciencias">Ciências</div>
+      <div class="card" data-subject="ingles">Inglês</div>
+      <div class="card" data-subject="artes">Artes</div>
+      <div class="card" data-subject="fisica">Física</div>
+      <div class="card" data-subject="matematica">Matemática</div>
+      <div class="card" data-subject="historia">História</div>
+      <div class="card" data-subject="geografia">Geografia</div>
+      <div class="card" data-subject="literatura">Literatura</div>
     </div>
   </div>
-  <script src="quiz.js"></script>
-  <script src="script.js"></script>
+
+  <script>
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const subject = card.getAttribute('data-subject');
+        window.location.href = `quiz.html?subject=${subject}`;
+      });
+    });
+  </script>
 </body>
 </html>
