@@ -1,102 +1,78 @@
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #2c3e50, #4ca1af);
-  color: white;
+  background-color: #1a1a1a;
+  font-family: 'Arial', sans-serif;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   margin: 0;
-  padding: 0;
 }
 
 .container {
   text-align: center;
-  padding: 2rem;
-}
-
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.card {
-  background-color: #1abc9c;
-  padding: 1.5rem;
-  border-radius: 12px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.card:hover {
-  transform: scale(1.05);
-  background-color: #16a085;
-}
-
-/* Quiz Page */
-#quiz-container {
+  background-color: #333;
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
   max-width: 600px;
-  margin: 3rem auto;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
-#question {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+#tema-container {
+  margin-bottom: 20px;
 }
 
-.btn {
-  display: block;
-  width: 100%;
-  margin: 0.5rem 0;
-  padding: 0.75rem;
-  background-color: #3498db;
+button {
+  padding: 12px 25px;
+  background-color: #ff6a00;
   border: none;
-  border-radius: 8px;
-  color: white;
-  font-size: 1rem;
+  border-radius: 10px;
   cursor: pointer;
+  font-size: 18px;
   transition: background-color 0.3s;
 }
 
-.btn:hover {
-  background-color: #2980b9;
+button:hover {
+  background-color: #e25c00;
 }
 
-.correct {
-  background-color: #2ecc71 !important;
-}
-
-.incorrect {
-  background-color: #e74c3c !important;
-}
-
-#next-btn {
-  margin-top: 1rem;
-  padding: 0.75rem 2rem;
-  font-size: 1rem;
-  background-color: #9b59b6;
-  color: white;
+#opcoes button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #444;
   border: none;
-  border-radius: 8px;
+  margin: 10px 0;
   cursor: pointer;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+#opcoes button:hover {
+  background-color: #666;
+}
+
+#feedback {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+#temporizador {
+  font-size: 24px;
+  color: #ff6a00;
+  margin-bottom: 20px;
+}
+
+#resultado {
+  text-align: center;
+  background-color: #222;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.oculto {
   display: none;
-}
-
-#next-btn:hover {
-  background-color: #8e44ad;
-}
-
-#timer {
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
 }
