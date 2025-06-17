@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Quiz Difícil</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Quiz Difícil</h1>
-    <div id="timer"></div>
-    <div id="question"></div>
-    <div id="answers"></div>
-    <div id="controls" style="display:none;">
-      <button id="btnRestart">Voltar ao Início</button>
-      <button id="btnNextQuiz">Próximo Quiz</button>
+    <h1 id="quiz-title">Carregando...</h1>
+    <div id="quiz-container">
+      <p id="question">Pergunta</p>
+      <div id="answers"></div>
+
+      <button id="next-btn" onclick="nextQuestion()" style="display:none">Próxima</button>
+      <p id="score"></p>
+
+      <button id="back-btn" onclick="window.location.href='index.html'" style="display:none">🔙 Voltar</button>
+      <button id="next-quiz-btn" onclick="proximoQuiz()" style="display:none">➡️ Próximo Tema</button>
     </div>
   </div>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,368 +1,168 @@
-const quizzes = [
-  {
-    name: 'Ciências',
-    time: 60,
-    questions: [
-      {
-        question: "Qual a principal função das mitocôndrias nas células?",
-        answers: [
-          { text: "Produzir energia", correct: true },
-          { text: "Controlar o núcleo", correct: false },
-          { text: "Produzir proteínas", correct: false },
-          { text: "Armazenar água", correct: false }
-        ]
-      },
-      // ... mais perguntas Ciências, no mínimo 7, igual antes
-      {
-        question: "O que é fotossíntese?",
-        answers: [
-          { text: "Processo de produção de energia nas plantas", correct: true },
-          { text: "Respiração dos animais", correct: false },
-          { text: "Divisão celular", correct: false },
-          { text: "Transformação de proteína em energia", correct: false }
-        ]
-      },
-      {
-        question: "Qual o elemento químico essencial para a formação da água?",
-        answers: [
-          { text: "Hidrogênio e Oxigênio", correct: true },
-          { text: "Carbono e Nitrogênio", correct: false },
-          { text: "Oxigênio e Nitrogênio", correct: false },
-          { text: "Hidrogênio e Carbono", correct: false }
-        ]
-      },
-      {
-        question: "Qual a unidade básica da vida?",
-        answers: [
-          { text: "Célula", correct: true },
-          { text: "Tecido", correct: false },
-          { text: "Órgão", correct: false },
-          { text: "Sistema", correct: false }
-        ]
-      },
-      {
-        question: "O que são vírus?",
-        answers: [
-          { text: "Agentes infecciosos não celulares", correct: true },
-          { text: "Células do sistema imunológico", correct: false },
-          { text: "Bactérias", correct: false },
-          { text: "Protozoários", correct: false }
-        ]
-      },
-      {
-        question: "Qual o pH neutro da água?",
-        answers: [
-          { text: "7", correct: true },
-          { text: "0", correct: false },
-          { text: "14", correct: false },
-          { text: "10", correct: false }
-        ]
-      },
-      {
-        question: "Qual gás é essencial para a respiração dos seres humanos?",
-        answers: [
-          { text: "Oxigênio", correct: true },
-          { text: "Dióxido de carbono", correct: false },
-          { text: "Nitrogênio", correct: false },
-          { text: "Hélio", correct: false }
-        ]
-      }
-    ]
-  },
-  {
-    name: 'Inglês',
-    time: 60,
-    questions: [
-      // mesmas perguntas do inglês, 7 ou mais perguntas difíceis
-      {
-        question: "What is the past tense of 'go'?",
-        answers: [
-          { text: "Went", correct: true },
-          { text: "Goed", correct: false },
-          { text: "Going", correct: false },
-          { text: "Gone", correct: false }
-        ]
-      },
-      {
-        question: "How do you say 'cachorro' in English?",
-        answers: [
-          { text: "Dog", correct: true },
-          { text: "Cat", correct: false },
-          { text: "Horse", correct: false },
-          { text: "Bird", correct: false }
-        ]
-      },
-      {
-        question: "What does 'to eat' mean?",
-        answers: [
-          { text: "Comer", correct: true },
-          { text: "Beber", correct: false },
-          { text: "Correr", correct: false },
-          { text: "Dormir", correct: false }
-        ]
-      },
-      {
-        question: "How do you say 'bom dia' in English?",
-        answers: [
-          { text: "Good morning", correct: true },
-          { text: "Good night", correct: false },
-          { text: "Hello", correct: false },
-          { text: "Good afternoon", correct: false }
-        ]
-      },
-      {
-        question: "What is the opposite of 'big'?",
-        answers: [
-          { text: "Small", correct: true },
-          { text: "Tall", correct: false },
-          { text: "Long", correct: false },
-          { text: "Heavy", correct: false }
-        ]
-      },
-      {
-        question: "Complete: She ___ to school every day.",
-        answers: [
-          { text: "goes", correct: true },
-          { text: "go", correct: false },
-          { text: "going", correct: false },
-          { text: "gone", correct: false }
-        ]
-      },
-      {
-        question: "What is the plural of 'mouse'?",
-        answers: [
-          { text: "Mice", correct: true },
-          { text: "Mouses", correct: false },
-          { text: "Mouse", correct: false },
-          { text: "Meese", correct: false }
-        ]
-      }
-    ]
-  },
-  {
-    name: 'Artes',
-    time: 60,
-    questions: [
-      // mesmas perguntas Artes (7+)
-      {
-        question: "Quem pintou a Mona Lisa?",
-        answers: [
-          { text: "Leonardo da Vinci", correct: true },
-          { text: "Michelangelo", correct: false },
-          { text: "Raphael", correct: false },
-          { text: "Van Gogh", correct: false }
-        ]
-      },
-      {
-        question: "Qual movimento artístico é conhecido pelo uso de cores fortes e formas geométricas?",
-        answers: [
-          { text: "Cubismo", correct: true },
-          { text: "Impressionismo", correct: false },
-          { text: "Barroco", correct: false },
-          { text: "Renascimento", correct: false }
-        ]
-      },
-      {
-        question: "O que é escultura?",
-        answers: [
-          { text: "Arte tridimensional feita com materiais como pedra ou madeira", correct: true },
-          { text: "Pintura em tela", correct: false },
-          { text: "Desenho em papel", correct: false },
-          { text: "Fotografia artística", correct: false }
-        ]
-      },
-      {
-        question: "Qual artista é conhecido por suas obras surrealistas?",
-        answers: [
-          { text: "Salvador Dalí", correct: true },
-          { text: "Pablo Picasso", correct: false },
-          { text: "Claude Monet", correct: false },
-          { text: "Frida Kahlo", correct: false }
-        ]
-      },
-      {
-        question: "O que é arte abstrata?",
-        answers: [
-          { text: "Arte que não tenta representar a realidade", correct: true },
-          { text: "Arte que copia fotos", correct: false },
-          { text: "Arte tradicional", correct: false },
-          { text: "Arte clássica", correct: false }
-        ]
-      },
-      {
-        question: "Qual técnica usa tinta diluída em água?",
-        answers: [
-          { text: "Aquarela", correct: true },
-          { text: "Óleo", correct: false },
-          { text: "Têmpera", correct: false },
-          { text: "Fresco", correct: false }
-        ]
-      },
-      {
-        question: "Quem criou a obra 'O Grito'?",
-        answers: [
-          { text: "Edvard Munch", correct: true },
-          { text: "Vincent van Gogh", correct: false },
-          { text: "Henri Matisse", correct: false },
-          { text: "Paul Cézanne", correct: false }
-        ]
-      }
-    ]
-  },
-  {
-    name: 'Física',
-    time: 60,
-    questions: [
-      // perguntas física 7+
-      {
-        question: "O que é velocidade?",
-        answers: [
-          { text: "Mudança de posição por unidade de tempo", correct: true },
-          { text: "Quantidade de massa", correct: false },
-          { text: "Força aplicada", correct: false },
-          { text: "Energia potencial", correct: false }
-        ]
-      },
-      {
-        question: "Qual a unidade de medida da força no SI?",
-        answers: [
-          { text: "Newton", correct: true },
-          { text: "Joule", correct: false },
-          { text: "Watt", correct: false },
-          { text: "Pascal", correct: false }
-        ]
-      },
-      {
-        question: "O que diz a primeira lei de Newton?",
-        answers: [
-          { text: "Um objeto em repouso permanece em repouso até que uma força atue sobre ele", correct: true },
-          { text: "Energia não pode ser criada nem destruída", correct: false },
-          { text: "Aceleração é proporcional à força", correct: false },
-          { text: "Força é massa vezes aceleração", correct: false }
-        ]
-      },
-      {
-        question: "Qual é a fórmula da velocidade média?",
-        answers: [
-          { text: "v = Δs/Δt", correct: true },
-          { text: "F = m.a", correct: false },
-          { text: "E = mc²", correct: false },
-          { text: "P = F.t", correct: false }
-        ]
-      },
-      {
-        question: "O que é energia cinética?",
-        answers: [
-          { text: "Energia do movimento", correct: true },
-          { text: "Energia armazenada", correct: false },
-          { text: "Energia térmica", correct: false },
-          { text: "Energia química", correct: false }
-        ]
-      },
-      {
-        question: "Qual é a unidade de medida da pressão?",
-        answers: [
-          { text: "Pascal", correct: true },
-          { text: "Newton", correct: false },
-          { text: "Joule", correct: false },
-          { text: "Watt", correct: false }
-        ]
-      },
-      {
-        question: "O que é trabalho em Física?",
-        answers: [
-          { text: "Força aplicada ao longo de uma distância", correct: true },
-          { text: "Quantidade de energia", correct: false },
-          { text: "Velocidade vezes massa", correct: false },
-          { text: "Pressão vezes área", correct: false }
-        ]
-      }
-    ]
-  }
-];
+const quizzes = {
+  matematica: [
+    { pergunta: "Quanto é 2 + 2?", respostas: ["3", "4", "5", "6"], correta: 1 },
+    { pergunta: "Quanto é 5 x 3?", respostas: ["15", "10", "20", "8"], correta: 0 },
+    { pergunta: "Qual o resultado de 12 ÷ 4?", respostas: ["2", "3", "4", "6"], correta: 1 },
+    { pergunta: "Qual a raiz quadrada de 81?", respostas: ["7", "8", "9", "10"], correta: 2 },
+    { pergunta: "Quanto é 10²?", respostas: ["100", "20", "10", "200"], correta: 0 },
+    { pergunta: "Qual é o valor de π (pi) aproximado?", respostas: ["3.14", "2.71", "1.62", "1.41"], correta: 0 }
+  ],
 
-let currentQuizIndex = 0;
-let currentQuestionIndex = 0;
-let timer;
-let timeRemaining;
+  portugues: [
+    { pergunta: "Qual é o plural de 'pão'?", respostas: ["pães", "pãos", "pãezinhos", "pãons"], correta: 0 },
+    { pergunta: "Qual dessas palavras é um advérbio?", respostas: ["rápido", "correndo", "devagar", "andar"], correta: 2 },
+    { pergunta: "Qual a função do sujeito na oração?", respostas: ["Indicar a ação", "Ser o objeto", "Quem pratica a ação", "Ser o predicado"], correta: 2 },
+    { pergunta: "Qual a classe gramatical da palavra 'felizmente'?", respostas: ["Substantivo", "Advérbio", "Adjetivo", "Verbo"], correta: 1 },
+    { pergunta: "O que é uma oração subordinada?", respostas: ["Uma oração independente", "Uma oração que depende de outra", "Um tipo de verbo", "Uma palavra"], correta: 1 },
+    { pergunta: "Qual é o tempo verbal da frase 'Eu cantarei amanhã'?", respostas: ["Presente", "Pretérito", "Futuro", "Imperativo"], correta: 2 }
+  ],
 
-const questionEl = document.getElementById('question');
-const answersEl = document.getElementById('answers');
-const timerEl = document.getElementById('timer');
-const controlsEl = document.getElementById('controls');
-const btnRestart = document.getElementById('btnRestart');
-const btnNextQuiz = document.getElementById('btnNextQuiz');
+  historia: [
+    { pergunta: "Quem descobriu o Brasil?", respostas: ["Pedro Álvares Cabral", "Cristóvão Colombo", "Vasco da Gama", "Dom Pedro I"], correta: 0 },
+    { pergunta: "Em que ano ocorreu a Proclamação da República no Brasil?", respostas: ["1889", "1822", "1500", "1945"], correta: 0 },
+    { pergunta: "Qual guerra foi conhecida como a 'Guerra dos Cem Anos'?", respostas: ["Guerra entre França e Inglaterra", "Guerra civil no Brasil", "Guerra das Malvinas", "Guerra do Paraguai"], correta: 0 },
+    { pergunta: "Quem foi o primeiro imperador do Brasil?", respostas: ["Dom Pedro I", "Dom Pedro II", "Getúlio Vargas", "Juscelino Kubitschek"], correta: 0 },
+    { pergunta: "Em que período ocorreu a Idade Média?", respostas: ["476 a 1453", "1492 a 1789", "1789 a 1914", "1914 a 1945"], correta: 0 },
+    { pergunta: "Qual civilização construiu as pirâmides no Egito?", respostas: ["Fenícios", "Romanos", "Egípcios", "Maias"], correta: 2 }
+  ],
 
-btnRestart.addEventListener('click', () => {
-  window.location.href = 'index.html';
-});
+  geografia: [
+    { pergunta: "Qual é o maior continente?", respostas: ["África", "Europa", "Ásia", "América do Sul"], correta: 2 },
+    { pergunta: "Qual é o rio mais extenso do mundo?", respostas: ["Nilo", "Amazonas", "Yangtzé", "Mississippi"], correta: 1 },
+    { pergunta: "Qual país tem a maior população do mundo?", respostas: ["Índia", "Estados Unidos", "China", "Brasil"], correta: 2 },
+    { pergunta: "Qual é a capital do Canadá?", respostas: ["Toronto", "Vancouver", "Ottawa", "Montreal"], correta: 2 },
+    { pergunta: "Qual oceano é o maior em extensão?", respostas: ["Atlântico", "Índico", "Pacífico", "Ártico"], correta: 2 },
+    { pergunta: "Qual é o deserto mais seco do mundo?", respostas: ["Sahara", "Atacama", "Gobi", "Kalahari"], correta: 1 }
+  ],
 
-btnNextQuiz.addEventListener('click', () => {
-  currentQuizIndex++;
-  if (currentQuizIndex >= quizzes.length) currentQuizIndex = 0;
-  currentQuestionIndex = 0;
-  controlsEl.style.display = 'none';
-  startQuiz();
-});
+  ciencias: [
+    { pergunta: "Qual o principal componente do ar que respiramos?", respostas: ["Oxigênio", "Nitrogênio", "Dióxido de carbono", "Hidrogênio"], correta: 1 },
+    { pergunta: "Qual órgão do corpo humano produz insulina?", respostas: ["Fígado", "Pâncreas", "Rins", "Estômago"], correta: 1 },
+    { pergunta: "Qual é a unidade básica da vida?", respostas: ["Átomo", "Molécula", "Célula", "Tecido"], correta: 2 },
+    { pergunta: "Qual o processo pelo qual as plantas produzem alimento?", respostas: ["Fotossíntese", "Respiração", "Fermentação", "Digestão"], correta: 0 },
+    { pergunta: "Qual é o gás liberado pelas células durante a respiração?", respostas: ["Oxigênio", "Dióxido de carbono", "Nitrogênio", "Hélio"], correta: 1 },
+    { pergunta: "Qual sistema do corpo humano é responsável pelo transporte de oxigênio?", respostas: ["Digestório", "Circulatório", "Nervoso", "Excretor"], correta: 1 }
+  ],
 
-function startQuiz() {
-  currentQuestionIndex = 0;
-  timeRemaining = quizzes[currentQuizIndex].time;
-  showTimer();
-  showQuestion();
-  startTimer();
+  ingles: [
+    { pergunta: "Qual a tradução de 'apple'?", respostas: ["Laranja", "Pera", "Maçã", "Banana"], correta: 2 },
+    { pergunta: "Como se diz 'bom dia' em inglês?", respostas: ["Good night", "Good morning", "Good afternoon", "Hello"], correta: 1 },
+    { pergunta: "O que significa 'I am hungry'?", respostas: ["Estou feliz", "Estou com fome", "Estou cansado", "Estou com frio"], correta: 1 },
+    { pergunta: "Como se diz 'livro' em inglês?", respostas: ["Pen", "Book", "Table", "Chair"], correta: 1 },
+    { pergunta: "Qual a forma correta do verbo 'to be' para 'they'?", respostas: ["Is", "Are", "Am", "Be"], correta: 1 },
+    { pergunta: "O que significa 'thank you'?", respostas: ["Por favor", "Desculpa", "Obrigado", "Olá"], correta: 2 }
+  ],
+
+  artes: [
+    { pergunta: "Quem pintou a Mona Lisa?", respostas: ["Michelangelo", "Leonardo da Vinci", "Van Gogh", "Picasso"], correta: 1 },
+    { pergunta: "Qual estilo de arte é caracterizado por formas geométricas e cores vivas?", respostas: ["Cubismo", "Impressionismo", "Expressionismo", "Realismo"], correta: 0 },
+    { pergunta: "Quem é o autor da obra 'O Grito'?", respostas: ["Edvard Munch", "Claude Monet", "Salvador Dalí", "Frida Kahlo"], correta: 0 },
+    { pergunta: "Qual movimento artístico ficou conhecido pelo uso de luz e sombra?", respostas: ["Barroco", "Romantismo", "Renascimento", "Futurismo"], correta: 0 },
+    { pergunta: "Qual técnica artística usa tinta aplicada com pequenos pontos?", respostas: ["Pontilhismo", "Frescor", "Grafite", "Mosaico"], correta: 0 },
+    { pergunta: "Qual artista é famoso pelos quadros com girassóis?", respostas: ["Van Gogh", "Picasso", "Rembrandt", "Da Vinci"], correta: 0 }
+  ],
+
+  fisica: [
+    { pergunta: "Qual é a fórmula da velocidade média?", respostas: ["v = d/t", "v = m/a", "v = t/d", "v = a/m"], correta: 0 },
+    { pergunta: "Quem formulou a lei da gravitação universal?", respostas: ["Galileu Galilei", "Isaac Newton", "Albert Einstein", "Nikola Tesla"], correta: 1 },
+    { pergunta: "O que representa a unidade Newton (N)?", respostas: ["Força", "Energia", "Potência", "Trabalho"], correta: 0 },
+    { pergunta: "Qual é a velocidade da luz no vácuo?", respostas: ["300.000 km/s", "150.000 km/s", "30.000 km/s", "3.000 km/s"], correta: 0 },
+    { pergunta: "Qual é o princípio da conservação da energia?", respostas: [
+      "Energia pode ser criada do nada",
+      "Energia não se cria nem se destrói",
+      "Energia desaparece ao longo do tempo",
+      "Energia aumenta sempre"
+    ], correta: 1 },
+    { pergunta: "O que é um corpo em queda livre?", respostas: [
+      "Um corpo que se move em linha reta",
+      "Um corpo que cai apenas pela ação da gravidade",
+      "Um corpo que está parado",
+      "Um corpo que usa propulsão"
+    ], correta: 1 }
+  ]
+};
+
+let tema = new URLSearchParams(window.location.search).get("tema");
+let perguntas = quizzes[tema];
+let indice = 0;
+let pontos = 0;
+let respondeu = false;
+
+const titulo = document.getElementById("quiz-title");
+const pergunta = document.getElementById("question");
+const respostas = document.getElementById("answers");
+const score = document.getElementById("score");
+const btnProxima = document.getElementById("next-btn");
+const btnVoltar = document.getElementById("back-btn");
+const btnProximoQuiz = document.getElementById("next-quiz-btn");
+
+if (!perguntas) {
+  titulo.innerText = "Tema não encontrado.";
+  btnProxima.style.display = "none";
+} else {
+  titulo.innerText = `Tema: ${tema.charAt(0).toUpperCase() + tema.slice(1)}`;
+  carregarPergunta();
 }
 
-function showQuestion() {
-  const quiz = quizzes[currentQuizIndex];
-  const question = quiz.questions[currentQuestionIndex];
-  questionEl.textContent = question.question;
+function carregarPergunta() {
+  respondeu = false;
+  const q = perguntas[indice];
+  pergunta.innerText = q.pergunta;
+  respostas.innerHTML = "";
+  q.respostas.forEach((resp, i) => {
+    const btn = document.createElement("div");
+    btn.classList.add("answer");
+    btn.innerText = resp;
+    btn.onclick = () => selecionar(i);
+    respostas.appendChild(btn);
+  });
+  btnProxima.style.display = "none";
+  score.innerText = `Pergunta ${indice + 1} de ${perguntas.length}`;
+}
 
-  answersEl.innerHTML = '';
-  question.answers.forEach(answer => {
-    const btn = document.createElement('div');
-    btn.classList.add('answer');
-    btn.textContent = answer.text;
-    btn.addEventListener('click', () => selectAnswer(answer.correct));
-    answersEl.appendChild(btn);
+function selecionar(i) {
+  if (respondeu) return; // bloqueia múltiplos cliques
+  respondeu = true;
+  const q = perguntas[indice];
+  if (i === q.correta) {
+    pontos++;
+    respostas.children[i].style.backgroundColor = "#00e676"; // verde para correta
+  } else {
+    respostas.children[i].style.backgroundColor = "#e53935"; // vermelho para errada
+    respostas.children[q.correta].style.backgroundColor = "#00e676"; // mostra correta
+  }
+  bloquearRespostas();
+  btnProxima.style.display = "inline-block";
+}
+
+function bloquearRespostas() {
+  const todasRespostas = document.querySelectorAll("#answers .answer");
+  todasRespostas.forEach((btn) => {
+    btn.style.pointerEvents = "none";
   });
 }
 
-function selectAnswer(correct) {
-  // opcional: pontuação, animação etc.
-  currentQuestionIndex++;
-  if (currentQuestionIndex < quizzes[currentQuizIndex].questions.length) {
-    showQuestion();
+function nextQuestion() {
+  indice++;
+  if (indice < perguntas.length) {
+    carregarPergunta();
   } else {
-    endQuiz();
+    mostrarResultado();
   }
 }
 
-function startTimer() {
-  timerEl.textContent = `Tempo restante: ${timeRemaining}s`;
-  timer = setInterval(() => {
-    timeRemaining--;
-    timerEl.textContent = `Tempo restante: ${timeRemaining}s`;
-    if (timeRemaining <= 0) {
-      clearInterval(timer);
-      endQuiz();
-    }
-  }, 1000);
+function mostrarResultado() {
+  pergunta.innerText = "Quiz finalizado!";
+  respostas.innerHTML = "";
+  score.innerText = `Você acertou ${pontos} de ${perguntas.length} perguntas.`;
+  btnProxima.style.display = "none";
+  btnVoltar.style.display = "inline-block";
+  btnProximoQuiz.style.display = "inline-block";
 }
 
-function showTimer() {
-  timerEl.textContent = `Tempo restante: ${timeRemaining}s`;
+function proximoQuiz() {
+  const temas = Object.keys(quizzes);
+  let atual = temas.indexOf(tema);
+  let proximo = (atual + 1) % temas.length;
+  window.location.href = `quiz.html?tema=${temas[proximo]}`;
 }
-
-function endQuiz() {
-  clearInterval(timer);
-  questionEl.textContent = 'Quiz finalizado!';
-  answersEl.innerHTML = '';
-  timerEl.textContent = '';
-  controlsEl.style.display = 'block';
-}
-
-// Quando carregar, começa o quiz direto
-window.onload = () => {
-  startQuiz();
-};
