@@ -2,35 +2,23 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiz Estudo</title>
+  <title>Quiz do Nachos Supremo</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1 id="titulo">Quiz de Estudo</h1>
-    <div id="tema-container">
-      <label for="tema">Escolha o tema:</label>
-      <select id="tema">
-        <option value="matematica">Matemática</option>
-        <option value="ciencias">Ciências</option>
-        <option value="historia">História</option>
-        <option value="portugues">Português</option>
-      </select>
-      <button onclick="iniciarQuiz()">Iniciar</button>
-    </div>
-    <div id="quiz-container" class="oculto">
-      <div id="temporizador"></div>
-      <div id="pergunta"></div>
-      <div id="opcoes"></div>
-      <div id="feedback"></div>
-    </div>
-    <div id="resultado" class="oculto">
-      <h2>Você finalizou o quiz!</h2>
+    <h1>🔥 Quiz Insano das Matérias 🔥</h1>
+    <div id="temporizador">⏱ Tempo: 120s</div>
+    <div id="pergunta"></div>
+    <div id="opcoes"></div>
+    <div id="feedback"></div>
+    <div id="resultado" class="hidden">
+      <h2>🏁 Fim de Jogo!</h2>
       <p id="pontuacao"></p>
-      <button onclick="reiniciarQuiz()">Jogar novamente</button>
+      <button onclick="recarregarQuiz()">Tentar Novamente</button>
     </div>
   </div>
   <script src="quiz.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

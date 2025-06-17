@@ -1,27 +1,68 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quiz</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
-    <h1 id="quiz-title">Carregando...</h1>
-    <div id="quiz-container">
-      <p id="timer">Tempo restante: 120s</p>
-      <p id="question">Pergunta</p>
-      <div id="answers"></div>
+const todasAsPerguntas = [
+  // MATEMÁTICA
+  {
+    pergunta: "Qual é o logaritmo de 100 na base 10?",
+    opcoes: ["1", "2", "10", "100"],
+    resposta: "2"
+  },
+  {
+    pergunta: "O que representa a constante de Euler (e)?",
+    opcoes: ["≈2.718", "≈3.14", "≈1.618", "10"],
+    resposta: "≈2.718"
+  },
+  {
+    pergunta: "Quanto é o determinante da matriz [[1,2],[3,4]]?",
+    opcoes: ["-2", "10", "0", "5"],
+    resposta: "-2"
+  },
 
-      <button id="next-btn" onclick="nextQuestion()" style="display:none">Próxima</button>
-      <p id="score"></p>
+  // CIÊNCIAS
+  {
+    pergunta: "Qual é o processo inverso da fotossíntese?",
+    opcoes: ["Respiração celular", "Fermentação", "Evaporação", "Sublimação"],
+    resposta: "Respiração celular"
+  },
+  {
+    pergunta: "Onde ocorre a digestão de proteínas?",
+    opcoes: ["Estômago", "Boca", "Intestino grosso", "Fígado"],
+    resposta: "Estômago"
+  },
+  {
+    pergunta: "Qual cientista propôs o modelo atômico atual?",
+    opcoes: ["Schrödinger", "Bohr", "Dalton", "Thomson"],
+    resposta: "Schrödinger"
+  },
 
-      <button id="back-btn" onclick="window.location.href='index.html'" style="display:none">🔙 Voltar</button>
-      <button id="next-quiz-btn" onclick="proximoQuiz()" style="display:none">➡️ Próximo Tema</button>
-    </div>
-  </div>
-  <script src="quiz.js"></script>
-  <script src="script.js"></script>
-</body>
-</html>
+  // HISTÓRIA
+  {
+    pergunta: "O que foi a Revolta da Armada?",
+    opcoes: ["Conflito naval contra o governo", "Revolução escrava", "Guerra com a Inglaterra", "Exploração marítima"],
+    resposta: "Conflito naval contra o governo"
+  },
+  {
+    pergunta: "Quem criou o socialismo científico?",
+    opcoes: ["Karl Marx", "Lenin", "Stalin", "Trotsky"],
+    resposta: "Karl Marx"
+  },
+  {
+    pergunta: "Qual foi a causa do fim da URSS?",
+    opcoes: ["Crise econômica e políticas de abertura", "Guerra nuclear", "Revolução Russa", "Independência da Sibéria"],
+    resposta: "Crise econômica e políticas de abertura"
+  },
+
+  // PORTUGUÊS
+  {
+    pergunta: "O que é uma oração subordinada adverbial condicional?",
+    opcoes: ["Expressa condição", "Expressa consequência", "Expressa tempo", "Expressa negação"],
+    resposta: "Expressa condição"
+  },
+  {
+    pergunta: "O que é metonímia?",
+    opcoes: ["Figura de linguagem de substituição", "Repetição de palavras", "Contraste de ideias", "Exagero"],
+    resposta: "Figura de linguagem de substituição"
+  },
+  {
+    pergunta: "Qual é o erro em 'Fazem dois anos que estudo aqui'?",
+    opcoes: ["Verbo no plural", "Verbo no passado", "Uso do 'que'", "Ortografia"],
+    resposta: "Verbo no plural"
+  }
