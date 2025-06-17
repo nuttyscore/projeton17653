@@ -56,14 +56,3 @@ button {
 button:hover {
   background-color: #00b34e;
 }
-
-#timer {
-  margin-top: 15px;
-  font-weight: bold;
-  font-size: 1.1em;
-  color: #00e676;
-}
-
-#controls {
-  margin-top: 15px;
-}
