@@ -1,24 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quiz</title>
+  <title>Quiz - Responda</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1 id="quiz-title">Carregando...</h1>
-    <div id="quiz-container">
-      <p id="question">Pergunta</p>
-      <div id="answers"></div>
-
-      <button id="next-btn" onclick="nextQuestion()" style="display:none">Próxima</button>
-      <p id="score"></p>
-
-      <button id="back-btn" onclick="window.location.href='index.html'" style="display:none">🔙 Voltar</button>
-      <button id="next-quiz-btn" onclick="proximoQuiz()" style="display:none">➡️ Próximo Tema</button>
-    </div>
+  <div class="container quiz-container">
+    <div class="timer" id="timer">Tempo restante: 60s</div>
+    <div class="pergunta" id="pergunta">Pergunta aqui</div>
+    <div class="respostas" id="respostas"></div>
+    <button id="next-btn" disabled>Próxima</button>
+    <div id="score"></div>
   </div>
 
   <script src="script.js"></script>
