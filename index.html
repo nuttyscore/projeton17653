@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+=<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
@@ -9,21 +9,20 @@
 <body>
   <div class="container">
     <h1>Escolha a Matéria</h1>
-    <div class="cards-container">
-      <div class="card" data-subject="ciencias">Ciências</div>
-      <div class="card" data-subject="ingles">Inglês</div>
-      <div class="card" data-subject="artes">Artes</div>
-      <div class="card" data-subject="fisica">Física</div>
+    <div class="cards">
       <div class="card" data-subject="matematica">Matemática</div>
       <div class="card" data-subject="historia">História</div>
       <div class="card" data-subject="geografia">Geografia</div>
       <div class="card" data-subject="literatura">Literatura</div>
+      <div class="card" data-subject="ciencias">Ciências</div>
+      <div class="card" data-subject="ingles">Inglês</div>
+      <div class="card" data-subject="artes">Artes</div>
+      <div class="card" data-subject="fisica">Física</div>
     </div>
   </div>
 
   <script>
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
+    document.querySelectorAll('.card').forEach(card => {
       card.addEventListener('click', () => {
         const subject = card.getAttribute('data-subject');
         window.location.href = `quiz.html?subject=${subject}`;

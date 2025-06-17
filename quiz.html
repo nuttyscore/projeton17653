@@ -3,18 +3,23 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Quiz - Matéria</title>
+<title>Quiz</title>
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container quiz-container">
-    <h2 id="subject-title">Quiz</h2>
-    <div id="question-container">
-      <div id="question">Carregando pergunta...</div>
-      <div id="answers" class="answers"></div>
+  <div class="container">
+    <h1 id="subject-title"></h1>
+    <div id="timer-container">
+      <div>Tempo: <span id="time">00:00</span></div>
+      <div>Pergunta <span id="current-question">0</span> de <span id="total-questions">0</span></div>
     </div>
-    <div id="timer">Tempo restante: <span id="time">00:00</span></div>
-    <div id="progress">Pergunta <span id="current-question">1</span> de <span id="total-questions">1</span></div>
+    <div id="question"></div>
+    <div id="answers"></div>
+
+    <div id="end-buttons">
+      <button id="btn-home">Voltar ao Início</button>
+      <button id="btn-next">Próxima Matéria</button>
+    </div>
   </div>
 
   <script src="script.js"></script>
