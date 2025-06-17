@@ -2,30 +2,35 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quiz das Matérias - Escolha</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Escolha a Matéria - Quiz</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Escolha a Matéria para o Quiz</h1>
+  <div class="inicio-container">
+    <h1>Escolha a Matéria</h1>
     <div class="materias">
-      <div class="card" onclick="iniciarQuiz('ciencias')">Ciências</div>
-      <div class="card" onclick="iniciarQuiz('ingles')">Inglês</div>
-      <div class="card" onclick="iniciarQuiz('artes')">Artes</div>
-      <div class="card" onclick="iniciarQuiz('fisica')">Física</div>
-      <div class="card" onclick="iniciarQuiz('matematica')">Matemática</div>
-      <div class="card" onclick="iniciarQuiz('historia')">História</div>
-      <div class="card" onclick="iniciarQuiz('geografia')">Geografia</div>
-      <div class="card" onclick="iniciarQuiz('portugues')">Português</div>
+      <div class="materia-card" data-materia="ciencias">Ciências</div>
+      <div class="materia-card" data-materia="ingles">Inglês</div>
+      <div class="materia-card" data-materia="artes">Artes</div>
+      <div class="materia-card" data-materia="fisica">Física</div>
+      <div class="materia-card" data-materia="matematica">Matemática</div>
+      <div class="materia-card" data-materia="historia">História</div>
+      <div class="materia-card" data-materia="geografia">Geografia</div>
+      <div class="materia-card" data-materia="portugues">Português</div>
     </div>
   </div>
 
   <script>
-    function iniciarQuiz(materia) {
-      localStorage.setItem('materiaQuiz', materia);
-      window.location.href = 'quiz.html';
-    }
+    const cards = document.querySelectorAll('.materia-card');
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const materia = card.getAttribute('data-materia');
+        localStorage.setItem('materiaQuiz', materia);
+        window.location.href = 'quiz.html';
+      });
+    });
   </script>
 </body>
 </html>
