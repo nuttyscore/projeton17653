@@ -1,165 +1,86 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #1e1e2f, #3a3a5a);
-  color: #f0f0f0;
+  background-color: #121212;
+  color: white;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
-.inicio-container {
+.container {
+  max-width: 700px;
+  width: 90%;
   text-align: center;
+  padding: 20px;
 }
 
-.materias {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-  margin-top: 20px;
+h1 {
+  margin-bottom: 30px;
 }
 
-.materia-card {
-  background: #29294b;
-  border: 2px solid #6c63ff;
-  border-radius: 12px;
-  padding: 25px 40px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 1.3rem;
-  transition: all 0.3s ease;
-  user-select: none;
-  color: #d1d1ff;
-  box-shadow: 0 0 10px #6c63ff;
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+  gap: 20px;
 }
 
-.materia-card:hover {
-  background: #6c63ff;
-  color: #1e1e2f;
-  box-shadow: 0 0 20px #a890ff;
-}
-
-.quiz-container {
-  background: #29294b;
-  padding: 30px 50px;
+.card {
+  background-color: #1f1f1f;
+  padding: 25px;
   border-radius: 15px;
-  width: 480px;
-  max-width: 95vw;
-  box-shadow: 0 0 30px #6c63ff;
-  text-align: center;
-}
-
-.pergunta {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 25px;
-  min-height: 70px;
-}
-
-.respostas {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-bottom: 25px;
-}
-
-.resposta-btn {
-  background: #3a3a5a;
-  border: none;
-  border-radius: 8px;
-  padding: 15px 20px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #d1d1ff;
+  font-size: 1.2em;
   cursor: pointer;
-  transition: all 0.3s ease;
+  box-shadow: 0 0 8px #00e676aa;
+  transition: transform 0.3s, background-color 0.3s;
   user-select: none;
-  box-shadow: 0 0 10px #6c63ff;
 }
 
-.resposta-btn:hover:not(:disabled) {
-  background: #6c63ff;
-  color: #1e1e2f;
-  box-shadow: 0 0 20px #a890ff;
+.card:hover {
+  background-color: #333333;
+  transform: scale(1.05);
 }
 
-.resposta-btn.correct {
-  background-color: #4caf50;
-  color: white;
-  box-shadow: 0 0 15px #4caf50;
+#question {
+  font-size: 1.3em;
+  margin-bottom: 20px;
 }
 
-.resposta-btn.wrong {
-  background-color: #f44336;
-  color: white;
-  box-shadow: 0 0 15px #f44336;
-}
-
-.resposta-btn:disabled {
-  cursor: default;
-  opacity: 0.7;
-}
-
-#next-btn {
-  background: #6c63ff;
-  border: none;
+#answers .answer {
+  background-color: #292929;
+  padding: 15px;
+  margin: 10px 0;
   border-radius: 10px;
-  padding: 15px 40px;
-  font-size: 1.2rem;
-  color: #1e1e2f;
-  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 15px #6c63ff;
+  transition: background-color 0.3s;
+  user-select: none;
 }
 
-#next-btn:disabled {
-  background: #a890ff;
-  cursor: default;
-  color: #4a4a6a;
-  box-shadow: none;
+#answers .answer:hover {
+  background-color: #444444;
 }
 
-#next-btn:hover:not(:disabled) {
-  background: #a890ff;
-  color: #29294b;
-  box-shadow: 0 0 25px #a890ff;
+button {
+  background-color: #00e676;
+  border: none;
+  border-radius: 12px;
+  color: black;
+  font-weight: bold;
+  padding: 12px 25px;
+  font-size: 1em;
+  margin: 15px 10px 0 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.score {
+button:hover {
+  background-color: #00b34e;
+}
+
+#timer {
   margin-top: 20px;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #d1d1ff;
-  min-height: 30px;
-}
-
-.timer {
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #d1d1ff;
-}
-
-#botoes-final button {
-  background: #6c63ff;
-  border: none;
-  border-radius: 10px;
-  padding: 12px 30px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #1e1e2f;
-  margin: 0 15px;
-  cursor: pointer;
-  box-shadow: 0 0 15px #6c63ff;
-  transition: all 0.3s ease;
-}
-
-#botoes-final button:hover {
-  background: #a890ff;
-  color: #29294b;
-  box-shadow: 0 0 25px #a890ff;
+  font-size: 1.1em;
+  font-weight: bold;
 }

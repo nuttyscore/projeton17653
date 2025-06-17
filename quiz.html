@@ -2,24 +2,191 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Quiz</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="quiz-container">
-    <div id="pergunta" class="pergunta"></div>
-    <div id="respostas" class="respostas"></div>
-    <div id="score" class="score"></div>
-    <div id="timer" class="timer"></div>
-    <button id="next-btn" disabled>Próxima</button>
-    <div id="botoes-final" style="display:none; margin-top:20px;">
-      <button id="btn-voltar">Voltar ao Início</button>
-      <button id="btn-proximo">Próximo Quiz</button>
+  <div class="container">
+    <h1 id="subject-title">Quiz</h1>
+    <div id="question"></div>
+    <div id="answers"></div>
+    <div>
+      <button id="next-btn" disabled>Próxima</button>
+      <button id="restart-btn" style="display:none;">Reiniciar</button>
+      <button id="next-quiz-btn" style="display:none;">Próximo Quiz</button>
+      <button id="back-btn" style="display:none;">Voltar ao Início</button>
     </div>
+    <div id="timer">Tempo restante: <span id="time">03:00</span></div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const questionsBySubject = {
+      "Ciências": [
+        { question: "Qual é a função principal dos ribossomos nas células?", answers: [{ text: "Produzir proteínas", correct: true }, { text: "Armazenar energia", correct: false }, { text: "Controlar o DNA", correct: false }, { text: "Decompor resíduos", correct: false }] },
+        { question: "Qual gás é liberado pelas plantas durante a fotossíntese?", answers: [{ text: "Oxigênio", correct: true }, { text: "Dióxido de carbono", correct: false }, { text: "Nitrogênio", correct: false }, { text: "Metano", correct: false }] },
+        { question: "Qual é a unidade básica da vida?", answers: [{ text: "Célula", correct: true }, { text: "Átomo", correct: false }, { text: "Molécula", correct: false }, { text: "Tecido", correct: false }] },
+        { question: "Qual é o órgão responsável pela circulação do sangue?", answers: [{ text: "Coração", correct: true }, { text: "Fígado", correct: false }, { text: "Pulmão", correct: false }, { text: "Rim", correct: false }] },
+        { question: "Qual mineral é essencial para a formação dos ossos?", answers: [{ text: "Cálcio", correct: true }, { text: "Ferro", correct: false }, { text: "Potássio", correct: false }, { text: "Sódio", correct: false }] },
+        { question: "O que é fotossíntese?", answers: [{ text: "Processo que produz energia nas plantas usando luz", correct: true }, { text: "Respiração das plantas", correct: false }, { text: "Decomposição de matéria orgânica", correct: false }, { text: "Crescimento das raízes", correct: false }] },
+        { question: "Qual é o componente principal do DNA?", answers: [{ text: "Ácido desoxirribonucleico", correct: true }, { text: "Ácido ribonucleico", correct: false }, { text: "Proteínas", correct: false }, { text: "Lipídios", correct: false }] }
+      ],
+      "Inglês": [
+        { question: "Qual a forma correta do passado do verbo 'to go'?", answers: [{ text: "Went", correct: true }, { text: "Go", correct: false }, { text: "Gone", correct: false }, { text: "Going", correct: false }] },
+        { question: "O que significa 'apple' em português?", answers: [{ text: "Maçã", correct: true }, { text: "Pera", correct: false }, { text: "Banana", correct: false }, { text: "Laranja", correct: false }] },
+        { question: "Como se diz 'cachorro' em inglês?", answers: [{ text: "Dog", correct: true }, { text: "Cat", correct: false }, { text: "Bird", correct: false }, { text: "Fish", correct: false }] },
+        { question: "Qual a tradução de 'good morning'?", answers: [{ text: "Bom dia", correct: true }, { text: "Boa noite", correct: false }, { text: "Boa tarde", correct: false }, { text: "Olá", correct: false }] },
+        { question: "Qual o plural de 'child'?", answers: [{ text: "Children", correct: true }, { text: "Childs", correct: false }, { text: "Childes", correct: false }, { text: "Child", correct: false }] },
+        { question: "O verbo 'to be' no presente do indicativo para 'he' é?", answers: [{ text: "Is", correct: true }, { text: "Are", correct: false }, { text: "Am", correct: false }, { text: "Be", correct: false }] },
+        { question: "Qual a tradução de 'thank you'?", answers: [{ text: "Obrigado", correct: true }, { text: "Por favor", correct: false }, { text: "Desculpa", correct: false }, { text: "Olá", correct: false }] }
+      ],
+      // Complete as outras matérias com 7 perguntas cada seguindo o padrão...
+    };
+
+    const subjects = Object.keys(questionsBySubject);
+    let currentSubject = null;
+    let currentQuestions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let timer;
+    let timeLeft = 180;
+
+    const questionElement = document.getElementById("question");
+    const answersElement = document.getElementById("answers");
+    const nextBtn = document.getElementById("next-btn");
+    const restartBtn = document.getElementById("restart-btn");
+    const nextQuizBtn = document.getElementById("next-quiz-btn");
+    const backBtn = document.getElementById("back-btn");
+    const subjectTitle = document.getElementById("subject-title");
+    const timeDisplay = document.getElementById("time");
+
+    function startQuiz(subject) {
+      currentSubject = subject;
+      currentQuestions = questionsBySubject[subject];
+      currentIndex = 0;
+      score = 0;
+      timeLeft = 180;
+      subjectTitle.textContent = `Quiz de ${subject}`;
+      nextBtn.style.display = "inline-block";
+      restartBtn.style.display = "none";
+      nextQuizBtn.style.display = "none";
+      backBtn.style.display = "none";
+      nextBtn.disabled = true;
+      showQuestion();
+      startTimer();
+    }
+
+    function showQuestion() {
+      resetState();
+      if (currentIndex >= currentQuestions.length) {
+        showScore();
+        return;
+      }
+      const currentQuestion = currentQuestions[currentIndex];
+      questionElement.textContent = currentQuestion.question;
+      currentQuestion.answers.forEach(answer => {
+        const button = document.createElement("div");
+        button.textContent = answer.text;
+        button.classList.add("answer");
+        button.addEventListener("click", () => selectAnswer(button, answer.correct));
+        answersElement.appendChild(button);
+      });
+    }
+
+    function resetState() {
+      nextBtn.disabled = true;
+      while (answersElement.firstChild) {
+        answersElement.removeChild(answersElement.firstChild);
+      }
+    }
+
+    function selectAnswer(button, correct) {
+      if (correct) {
+        button.style.backgroundColor = "#00e676";
+        score++;
+      } else {
+        button.style.backgroundColor = "#ff1744";
+      }
+      Array.from(answersElement.children).forEach(btn => {
+        btn.style.pointerEvents = "none";
+      });
+      nextBtn.disabled = false;
+    }
+
+    nextBtn.addEventListener("click", () => {
+      currentIndex++;
+      showQuestion();
+    });
+
+    restartBtn.addEventListener("click", () => {
+      currentIndex = 0;
+      score = 0;
+      timeLeft = 180;
+      subjectTitle.textContent = `Quiz de ${currentSubject}`;
+      restartBtn.style.display = "none";
+      nextBtn.style.display = "inline-block";
+      nextQuizBtn.style.display = "none";
+      backBtn.style.display = "none";
+      showQuestion();
+      startTimer();
+    });
+
+    nextQuizBtn.addEventListener("click", () => {
+      const currentSubjectIndex = subjects.indexOf(currentSubject);
+      const nextIndex = (currentSubjectIndex + 1) % subjects.length;
+      const nextSubject = subjects[nextIndex];
+      window.location.href = `quiz.html?subject=${encodeURIComponent(nextSubject)}`;
+    });
+
+    backBtn.addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+
+    function showScore() {
+      resetState();
+      questionElement.textContent = `Você respondeu ${score} de ${currentQuestions.length} corretamente!`;
+      nextBtn.style.display = "none";
+      restartBtn.style.display = "inline-block";
+      nextQuizBtn.style.display = "inline-block";
+      backBtn.style.display = "inline-block";
+      clearInterval(timer);
+      timeDisplay.textContent = "00:00";
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      updateTimeDisplay();
+      timer = setInterval(() => {
+        timeLeft--;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          alert("Tempo esgotado! O quiz será reiniciado.");
+          location.reload();
+        }
+        updateTimeDisplay();
+      }, 1000);
+    }
+
+    function updateTimeDisplay() {
+      const minutes = Math.floor(timeLeft / 60).toString().padStart(2, "0");
+      const seconds = (timeLeft % 60).toString().padStart(2, "0");
+      timeDisplay.textContent = `${minutes}:${seconds}`;
+    }
+
+    function getSubjectFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("subject");
+    }
+
+    window.onload = () => {
+      const subject = getSubjectFromURL();
+      if (!subject || !questionsBySubject[subject]) {
+        alert("Matéria inválida! Voltando para a página inicial.");
+        window.location.href = "index.html";
+      } else {
+        startQuiz(subject);
+      }
+    };
+  </script>
 </body>
 </html>
