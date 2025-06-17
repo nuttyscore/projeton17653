@@ -78,10 +78,3 @@ button {
 button:hover {
   background-color: #00b34e;
 }
-
-#timer {
-  font-size: 1.2em;
-  margin-bottom: 15px;
-  color: #00e676;
-  font-weight: bold;
-}
