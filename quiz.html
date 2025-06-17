@@ -1,20 +1,26 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quiz Escolar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container" id="quiz-container">
-    <h1 id="tema"></h1>
-    <p id="pergunta"></p>
-    <div id="respostas"></div>
-    <p id="timer">⏳ Tempo: 30</p>
-    <p id="pontuacao">Pontuação: 0</p>
-  </div>
+  <div class="container">
+    <h1 id="quiz-title">Carregando...</h1>
+    <div id="quiz-container">
+      <p id="timer">Tempo restante: 120s</p>
+      <p id="question">Pergunta</p>
+      <div id="answers"></div>
 
+      <button id="next-btn" onclick="nextQuestion()" style="display:none">Próxima</button>
+      <p id="score"></p>
+
+      <button id="back-btn" onclick="window.location.href='index.html'" style="display:none">🔙 Voltar</button>
+      <button id="next-quiz-btn" onclick="proximoQuiz()" style="display:none">➡️ Próximo Tema</button>
+    </div>
+  </div>
   <script src="quiz.js"></script>
   <script src="script.js"></script>
 </body>

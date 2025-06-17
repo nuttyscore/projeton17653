@@ -1,78 +1,101 @@
-const urlParams = new URLSearchParams(window.location.search);
-const tema = urlParams.get("tema");
-const dificil = urlParams.get("dificil") === "true";
+let quizzes = {};
 
-document.getElementById("tema").textContent = "Tema: " + tema + (dificil ? " (Modo Difícil)" : "");
-
-const perguntas = {
-  matematica: [
-    { pergunta: "Quanto é 2 + 2?", respostas: ["3", "4", "5", "6"], correta: 1 },
-    { pergunta: "Quanto é 5 x 3?", respostas: ["15", "10", "20", "8"], correta: 0 },
-    { pergunta: "Qual o resultado de 12 ÷ 4?", respostas: ["2", "3", "4", "6"], correta: 1 },
-    { pergunta: "Qual a raiz quadrada de 81?", respostas: ["7", "8", "9", "10"], correta: 2 },
-    { pergunta: "Quanto é 10²?", respostas: ["100", "20", "10", "200"], correta: 0 },
-    { pergunta: "Qual é o valor de π (pi) aproximado?", respostas: ["3.14", "2.71", "1.62", "1.41"], correta: 0 }
-  ],
-  matematica_dificil: [
-    { pergunta: "Qual a derivada de x²?", respostas: ["2x", "x", "x²", "1"], correta: 0 },
-    { pergunta: "Quanto é o log de 100 na base 10?", respostas: ["1", "2", "10", "100"], correta: 1 },
-    { pergunta: "Quanto é a integral de 1/x?", respostas: ["x", "ln|x|", "1/x²", "x²"], correta: 1 },
-    { pergunta: "Qual a fórmula da área de um círculo?", respostas: ["2πr", "πr²", "πd", "r²/π"], correta: 1 },
-    { pergunta: "Quanto é 3 elevado à 4ª potência?", respostas: ["27", "81", "12", "64"], correta: 1 }
-  ]
-};
-
-let quizAtual = perguntas[tema + (dificil ? "_dificil" : "")];
-let perguntaAtual = 0;
-let pontuacao = 0;
-let tempo = 30;
-let intervalo;
-
-function mostrarPergunta() {
-  if (perguntaAtual >= quizAtual.length) {
-    document.getElementById("pergunta").textContent = "Fim do quiz!";
-    document.getElementById("respostas").innerHTML = "";
-    clearInterval(intervalo);
-    return;
-  }
-
-  document.getElementById("pergunta").textContent = quizAtual[perguntaAtual].pergunta;
-  const respostasContainer = document.getElementById("respostas");
-  respostasContainer.innerHTML = "";
-
-  quizAtual[perguntaAtual].respostas.forEach((resposta, index) => {
-    const botao = document.createElement("button");
-    botao.textContent = resposta;
-    botao.onclick = () => verificarResposta(index);
-    respostasContainer.appendChild(botao);
+fetch('script.js')
+  .then(response => response.text())
+  .then(data => {
+    eval(data);
+    iniciarQuiz();
   });
 
-  tempo = 30;
-  document.getElementById("timer").textContent = `⏳ Tempo: ${tempo}`;
-  clearInterval(intervalo);
-  intervalo = setInterval(atualizarTempo, 1000);
-}
+function iniciarQuiz() {
+  let tema = new URLSearchParams(window.location.search).get("tema");
+  let perguntas = quizzes[tema];
+  let indice = 0;
+  let pontos = 0;
+  let tempoRestante = 120;
 
-function atualizarTempo() {
-  tempo--;
-  document.getElementById("timer").textContent = `⏳ Tempo: ${tempo}`;
-  if (tempo <= 0) {
-    clearInterval(intervalo);
-    perguntaAtual++;
-    mostrarPergunta();
+  const titulo = document.getElementById("quiz-title");
+  const pergunta = document.getElementById("question");
+  const respostas = document.getElementById("answers");
+  const score = document.getElementById("score");
+  const btnProxima = document.getElementById("next-btn");
+  const btnVoltar = document.getElementById("back-btn");
+  const btnProximoQuiz = document.getElementById("next-quiz-btn");
+  const timer = document.getElementById("timer");
+
+  if (!perguntas) {
+    titulo.innerText = "Tema não encontrado.";
+    return;
+  } else {
+    titulo.innerText = `Tema: ${tema.charAt(0).toUpperCase() + tema.slice(1)}`;
+    carregarPergunta();
+    iniciarContador();
   }
-}
 
-function verificarResposta(respostaSelecionada) {
-  clearInterval(intervalo);
-  const correta = quizAtual[perguntaAtual].correta;
-  if (respostaSelecionada === correta) {
-    pontuacao++;
+  function iniciarContador() {
+    const intervalo = setInterval(() => {
+      tempoRestante--;
+      timer.innerText = `Tempo restante: ${tempoRestante}s`;
+
+      if (tempoRestante <= 0) {
+        clearInterval(intervalo);
+        alert("Tempo esgotado! Você voltará ao início.");
+        window.location.href = "index.html";
+      }
+    }, 1000);
   }
 
-  document.getElementById("pontuacao").textContent = `Pontuação: ${pontuacao}`;
-  perguntaAtual++;
-  mostrarPergunta();
-}
+  function carregarPergunta() {
+    const q = perguntas[indice];
+    pergunta.innerText = q.pergunta;
+    respostas.innerHTML = "";
+    q.respostas.forEach((resp, i) => {
+      const btn = document.createElement("div");
+      btn.classList.add("answer");
+      btn.innerText = resp;
+      btn.onclick = () => selecionar(i);
+      respostas.appendChild(btn);
+    });
+    btnProxima.style.display = "none";
+    score.innerText = "";
+  }
 
-mostrarPergunta();
+  function selecionar(i) {
+    const q = perguntas[indice];
+    if (i === q.correta) pontos++;
+    indice++;
+    btnProxima.style.display = "inline-block";
+    bloquearRespostas();
+  }
+
+  function bloquearRespostas() {
+    const todasRespostas = document.querySelectorAll("#answers .answer");
+    todasRespostas.forEach((btn) => {
+      btn.style.pointerEvents = "none";
+    });
+  }
+
+  window.nextQuestion = function () {
+    if (indice < perguntas.length) {
+      carregarPergunta();
+    } else {
+      mostrarResultado();
+    }
+  };
+
+  function mostrarResultado() {
+    pergunta.innerText = "Quiz finalizado!";
+    respostas.innerHTML = "";
+    score.innerText = `Você acertou ${pontos} de ${perguntas.length} perguntas.`;
+    btnProxima.style.display = "none";
+    btnVoltar.style.display = "inline-block";
+    btnProximoQuiz.style.display = "inline-block";
+  }
+
+  window.proximoQuiz = function () {
+    const temas = Object.keys(quizzes);
+    let atual = temas.indexOf(tema);
+    let proximo = (atual + 1) % temas.length;
+    window.location.href = `quiz.html?tema=${temas[proximo]}`;
+  };
+}
