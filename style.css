@@ -21,28 +21,6 @@ h1 {
   margin-bottom: 30px;
 }
 
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
-  gap: 20px;
-}
-
-.card {
-  background-color: #1f1f1f;
-  padding: 25px;
-  border-radius: 15px;
-  font-size: 1.2em;
-  cursor: pointer;
-  box-shadow: 0 0 8px #00e676aa;
-  transition: transform 0.3s, background-color 0.3s;
-  user-select: none;
-}
-
-.card:hover {
-  background-color: #333333;
-  transform: scale(1.05);
-}
-
 #question {
   font-size: 1.3em;
   margin-bottom: 20px;
@@ -80,7 +58,12 @@ button:hover {
 }
 
 #timer {
-  margin-top: 20px;
-  font-size: 1.1em;
+  margin-top: 15px;
   font-weight: bold;
+  font-size: 1.1em;
+  color: #00e676;
+}
+
+#controls {
+  margin-top: 15px;
 }
